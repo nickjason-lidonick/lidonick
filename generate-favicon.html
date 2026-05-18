@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lidonick — Generate Favicon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+      padding: 48px 24px;
+    }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+    p { color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 32px; line-height: 1.5; }
+    .preview {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: #111;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+    }
+    .preview img, .preview canvas { border-radius: 8px; }
+    .sizes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    button {
+      background: #fff;
+      color: #0a0a0a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    button:hover { background: rgba(255,255,255,0.85); }
+    button.secondary {
+      background: transparent;
+      color: #fff;
+      border: 0.5px solid rgba(255,255,255,0.3);
+    }
+    button.secondary:hover { background: rgba(255,255,255,0.08); }
+    label { display: block; font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .row { margin-bottom: 20px; }
+    input[type="number"] {
+      width: 100%;
+      background: #1a1a1a;
+      border: 0.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 14px;
+    }
+    pre {
+      background: #111;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 12px;
+      overflow-x: auto;
+      color: rgba(255,255,255,0.7);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Generate Favicon</h1>
+    <p>Preview and download PNG favicons from the Lidonick SVG. Save files into <code>public/</code>.</p>
+
+    <div class="preview" id="preview">
+      <img id="svgPreview" alt="Lidonick favicon" width="96" height="96" />
+      <canvas id="canvas" width="32" height="32" style="width: 32px; height: 32px; image-rendering: pixelated;"></canvas>
+      <canvas id="canvasLarge" width="192" height="192" style="width: 96px; height: 96px;"></canvas>
+    </div>
+
+    <div class="row">
+      <label for="size">Export size (px)</label>
+      <input type="number" id="size" value="32" min="16" max="512" step="1" />
+    </div>
+
+    <div class="sizes">
+      <button type="button" data-size="16">16×16</button>
+      <button type="button" data-size="32">32×32</button>
+      <button type="button" data-size="192">192×192</button>
+      <button type="button" data-size="512">512×512</button>
+      <button type="button" id="download">Download PNG</button>
+      <button type="button" class="secondary" id="copySvg">Copy SVG</button>
+    </div>
+
+    <label>SVG source</label>
+    <pre id="svgSource"></pre>
+  </main>
+
+  <script>
+    const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#0a0a0a"/>
+  <text x="50" y="72" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="62" font-weight="600" fill="#ffffff" text-anchor="middle">L</text>
+</svg>`;
+
+    const svgBlob = new Blob([FAVICON_SVG], { type: "image/svg+xml" });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const img = document.getElementById("svgPreview");
+    const canvas = document.getElementById("canvas");
+    const canvasLarge = document.getElementById("canvasLarge");
+    const sizeInput = document.getElementById("size");
+    const ctx = canvas.getContext("2d");
+    const ctxLarge = canvasLarge.getContext("2d");
+
+    document.getElementById("svgSource").textContent = FAVICON_SVG.trim();
+
+    img.src = svgUrl;
+
+    function render(size) {
+      canvas.width = size;
+      canvas.height = size;
+      canvas.style.width = Math.min(size, 64) + "px";
+      canvas.style.height = Math.min(size, 64) + "px";
+      ctx.clearRect(0, 0, size, size);
+      ctx.drawImage(img, 0, 0, size, size);
+
+      const large = 192;
+      canvasLarge.width = large;
+      canvasLarge.height = large;
+      ctxLarge.clearRect(0, 0, large, large);
+      ctxLarge.drawImage(img, 0, 0, large, large);
+    }
+
+    function downloadPng(size) {
+      const c = document.createElement("canvas");
+      c.width = size;
+      c.height = size;
+      c.getContext("2d").drawImage(img, 0, 0, size, size);
+      const link = document.createElement("a");
+      link.download = size === 192 ? "logo192.png" : size === 512 ? "logo512.png" : `favicon-${size}.png`;
+      link.href = c.toDataURL("image/png");
+      link.click();
+    }
+
+    img.onload = () => render(Number(sizeInput.value));
+
+    sizeInput.addEventListener("input", () => render(Number(sizeInput.value)));
+
+    document.querySelectorAll("[data-size]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const size = Number(btn.dataset.size);
+        sizeInput.value = size;
+        render(size);
+        downloadPng(size);
+      });
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      downloadPng(Number(sizeInput.value));
+    });
+
+    document.getElementById("copySvg").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(FAVICON_SVG.trim());
+      const btn = document.getElementById("copySvg");
+      const label = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => { btn.textContent = label; }, 1500);
+    });
+  </script>
+</body>
+</html>
