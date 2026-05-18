@@ -13,11 +13,11 @@ function LandingPage({ onLoginClick }) {
       </nav>
       <div className="hero">
         <h1>Intelligence that moves<br />as fast as you do.</h1>
-        <p>Company intel, people search, and recruiter comp intelligence unified in one platform.</p>
+        <p>Company intel, people search, and comp intelligence unified in one platform.</p>
         <button className="cta-btn" onClick={onLoginClick}>Get started</button>
       </div>
     </div>
-  );s
+  );
 }
 
 function LoginPage({ onLogin, onBack }) {
