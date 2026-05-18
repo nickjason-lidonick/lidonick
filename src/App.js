@@ -17,7 +17,7 @@ function LandingPage({ onLoginClick }) {
         <button className="cta-btn" onClick={onLoginClick}>Get started</button>
       </div>
     </div>
-  );
+  );s
 }
 
 function LoginPage({ onLogin, onBack }) {
