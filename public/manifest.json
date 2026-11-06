@@ -1,7 +1,7 @@
 {
   "short_name": "Lidonick",
   "name": "Lidonick",
-  "description": "AI executive assistant for dealership general managers and sales managers.",
+  "description": "Grok Bot for dealership general managers and sales managers. It takes on the compiling and the watch work so they can run the store.",
   "icons": [
     {
       "src": "favicon.svg",

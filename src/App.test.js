@@ -13,7 +13,7 @@ test("presents Lidonick as an internal executive assistant for dealership manage
   expect(
     screen.getByRole("heading", {
       level: 1,
-      name: /morning brief for the people who run the store/i,
+      name: /time back for the people who run the store/i,
     })
   ).toBeInTheDocument();
 
@@ -21,7 +21,7 @@ test("presents Lidonick as an internal executive assistant for dealership manage
     screen.getByRole("heading", { name: /general manager and the sales manager/i })
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("heading", { name: /four things, every morning, in one place/i })
+    screen.getByRole("heading", { name: /four things, already done, every morning/i })
   ).toBeInTheDocument();
   expect(
     screen.getByRole("heading", { name: /monthly objectives, checked against selling days/i })
@@ -31,6 +31,14 @@ test("presents Lidonick as an internal executive assistant for dealership manage
   ).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: /request a demo/i })).toBeInTheDocument();
 
+  expect(
+    screen.getByRole("heading", { name: /reviews, the inbox, and work like that/i })
+  ).toBeInTheDocument();
+  expect(document.body).toHaveTextContent(/grok bot/i);
+  expect(document.body).toHaveTextContent(/google, yelp, and similar sites/i);
+  expect(document.body).toHaveTextContent(/email complaints/i);
+  expect(document.body).toHaveTextContent(/agentic assistant/i);
+  expect(document.body).toHaveTextContent(/does the compiling/i);
   expect(document.body).toHaveTextContent(/not a chatbot for shoppers/i);
   expect(document.body).toHaveTextContent(/does not replace the dms/i);
   expect(document.body).toHaveTextContent(/csv exports/i);
@@ -62,11 +70,11 @@ test("public metadata describes the executive assistant", () => {
   const manifest = read("../public/manifest.json");
 
   expect(html).toMatch(
-    /<title>Lidonick — AI executive assistant for dealership managers<\/title>/
+    /<title>Lidonick — Grok Bot for dealership managers<\/title>/
   );
   expect(html).toMatch(/general managers and sales managers/i);
   expect(html).toMatch(/name="description"/);
-  expect(manifest).toMatch(/executive assistant/i);
+  expect(manifest).toMatch(/Grok Bot/i);
 
   const source = [html, manifest, read("App.js"), read("App.css")].join("\n");
   expect(source).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);

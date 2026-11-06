@@ -18,19 +18,19 @@ const BRIEF_PREVIEW = [
 const BRIEF_PARTS = [
   {
     title: "Units and pace",
-    text: "Where the store stands against this month's manufacturer objectives, measured by the selling days already used — not only by the unit count.",
+    text: "Lidonick checks where the store stands against this month's manufacturer objectives, using the selling days already used, not only the unit count.",
   },
   {
     title: "Salesperson performance",
-    text: "Who on the floor is ahead of pace and who is behind, so the sales meeting starts with the people who need attention.",
+    text: "Lidonick finds who on the floor is ahead of pace and who is behind, so the sales meeting starts with the people who need attention.",
   },
   {
     title: "Service drive",
-    text: "How the drive is performing, in the same brief as sales, so the morning does not depend on a separate report.",
+    text: "Lidonick reads how the drive is performing and puts it in the same brief as sales, so the morning does not depend on a separate report.",
   },
   {
     title: "Exceptions",
-    text: "What does not fit the plan and needs a manager today: a pace miss, someone far off their number, or a problem on the drive.",
+    text: "Lidonick surfaces what does not fit the plan and needs a manager today: a pace miss, someone far off their number, or a problem on the drive.",
   },
 ];
 
@@ -45,7 +45,7 @@ const SOURCES = [
   },
   {
     title: "Existing reports",
-    text: "Reports the store already runs, read into the same morning brief.",
+    text: "Reports the store already runs. Lidonick uses them to do the compiling.",
   },
 ];
 
@@ -56,11 +56,11 @@ const STEPS = [
   },
   {
     title: "Set the month",
-    text: "Manufacturer objectives and the selling days on the calendar. Pace is read from those as the days pass.",
+    text: "Manufacturer objectives and the selling days on the calendar. Lidonick checks pace from those as the days pass.",
   },
   {
-    title: "Read the brief, then ask",
-    text: "The general manager and the sales manager get the morning email or brief, and can ask follow-up questions through the day.",
+    title: "Take the morning, then ask",
+    text: "The general manager and the sales manager get the morning email or brief, with the compiling already done. Through the day they can ask the assistant to take the next task.",
   },
 ];
 
@@ -69,13 +69,27 @@ const QUESTIONS = [
   "Which exceptions from yesterday are still open?",
   "Is the service drive ahead or behind for the month?",
   "Which salespeople are ahead of their own pace?",
+  "Did a really good or really bad review come in?",
+  "Is there a complaint in the inbox that needs a manager?",
+];
+
+const WATCH = [
+  {
+    title: "Reviews",
+    text: "Grok Bot keeps an eye on the store's reviews on Google, Yelp, and similar sites. When a review is really good or really bad, it notifies the general manager.",
+  },
+  {
+    title: "Inbox",
+    text: "It monitors inboxes for email complaints and similar issues that need a manager, and brings those forward instead of leaving them to be found later.",
+  },
 ];
 
 const DEMO_POINTS = [
   "How the store tracks manufacturer objectives and selling days today",
-  "What the general manager and the sales manager need before the morning meeting",
-  "Which exports, emails, and reports would feed the brief",
-  "What setup takes, and which extra reporting steps the brief would replace",
+  "The compiling the general manager and the sales manager still do by hand",
+  "Which reviews and inbox issues should notify a manager",
+  "Which exports, emails, and reports would feed the assistant",
+  "What setup takes, and which extra reporting steps that work would replace",
 ];
 
 function SellingDayDiagram() {
@@ -188,18 +202,23 @@ export default function App() {
         <section className="hero-wrap" aria-labelledby="hero-title">
           <div className="wrap hero">
             <div className="hero-copy">
-              <p className="eyebrow">AI executive assistant · Internal to the store</p>
-              <h1 id="hero-title">The morning brief for the people who run the store.</h1>
+              <p className="eyebrow">Grok Bot for the dealership · Internal to the store</p>
+              <h1 id="hero-title">Time back for the people who run the store.</h1>
               <p className="lead">
-                Lidonick is built for dealership general managers and sales managers.
-                Each morning it sends an email or brief they can act on: units and pace
-                against the manufacturer's objectives, which salespeople are ahead or
-                behind, how the service drive is performing, and the exceptions that
-                need attention.
+                Lidonick integrates Grok Bot into the dealership. It is an agentic
+                assistant for general managers and sales managers: it does the work,
+                rather than leaving them a dashboard to interpret. It takes on the
+                tasks that consume the day without being the job. Assembling the
+                numbers, chasing which salesperson is behind, piecing reports
+                together, checking pace against selling days, watching reviews, and
+                flagging complaints. The time goes back to running the store.
               </p>
               <p className="note">
-                It is not a chatbot for shoppers. Setup stays light. Lidonick works from
-                the CSV exports, forwarded emails, and reports the store already produces.
+                Each morning that work arrives as an email or brief they can act on:
+                units and pace, salesperson performance, the service drive, and the
+                exceptions that need attention. It is not a chatbot for shoppers. Setup
+                stays light. Lidonick works from the CSV exports, forwarded emails, and
+                reports the store already produces.
               </p>
               <div className="actions">
                 <a className="button" href="#demo">
@@ -226,7 +245,7 @@ export default function App() {
                 ))}
               </dl>
               <p className="brief-note">
-                Structure of the brief. Your store's own reports fill it in.
+                An example of the morning brief. Lidonick fills it in from your store's reports.
               </p>
             </figure>
           </div>
@@ -238,25 +257,27 @@ export default function App() {
               <p className="kicker">Who it's for</p>
               <h2 id="who-title">The general manager and the sales manager.</h2>
               <p className="intro">
-                Lidonick is an internal tool for the people accountable for the month.
-                Customers never see it.
+                Built for the people accountable for the month. Lidonick takes the
+                compiling so they can run the store. Customers never see it.
               </p>
             </div>
             <div className="cards">
               <article className="card">
                 <h3>General managers</h3>
                 <p>
-                  You own the month. Before the store is busy, the brief shows units
-                  against the manufacturer objective, the pace the selling days require,
-                  the service drive, and the exceptions that cannot wait.
+                  You own the month. Grok Bot assembles units against the manufacturer
+                  objective, checks the pace the selling days require, reads the service
+                  drive, and surfaces the exceptions that cannot wait. It also tells you
+                  when a review or an inbox complaint needs you. You start the day
+                  running the store.
                 </p>
               </article>
               <article className="card">
                 <h3>Sales managers</h3>
                 <p>
-                  You own the floor. The same brief shows who is ahead, who is behind,
-                  and which exceptions belong in the morning meeting, so it starts from
-                  the numbers rather than from a stack of files.
+                  You own the floor. Lidonick finds who is ahead, who is behind, and
+                  which exceptions belong in the meeting. The files are already worked,
+                  so you can coach.
                 </p>
               </article>
             </div>
@@ -264,8 +285,9 @@ export default function App() {
               <h3>Not a shopper chatbot</h3>
               <p>
                 Lidonick stays inside the store. It does not sit on the website and it
-                does not talk to customers. It is a plug-and-play tool for managers. A
-                store sets it up from reports it already has, without a long installation.
+                does not talk to customers. It is a plug-and-play assistant for
+                managers, set up from reports the store already has, without a long
+                installation.
               </p>
             </aside>
           </div>
@@ -275,11 +297,11 @@ export default function App() {
           <div className="wrap">
             <div className="section-head">
               <p className="kicker">The brief</p>
-              <h2 id="brief-title">Four things, every morning, in one place.</h2>
+              <h2 id="brief-title">Four things, already done, every morning.</h2>
               <p className="intro">
-                Managers should not have to hunt through disconnected systems to know
-                where the day stands. Lidonick consolidates information the store
-                already has and sends it as a brief they can use in the meeting.
+                The morning brief is one way Grok Bot gives that time back. It has
+                already assembled the numbers, found who is behind, read the drive,
+                and surfaced the exceptions. The picture is ready for the meeting.
               </p>
             </div>
             <div className="cards">
@@ -300,17 +322,40 @@ export default function App() {
               <h2 id="pace-title">Monthly objectives, checked against selling days.</h2>
               <p>
                 Manufacturer (OEM) objectives are set for the month. A unit count by
-                itself does not say whether the store is on them. Lidonick tracks pace
-                as the selling days pass, so a gap shows up while there are still days
-                left to act on it.
+                itself does not say whether the store is on them. Checking pace against
+                the selling days is usually hand work. Lidonick does that check as the
+                days pass, so a gap shows up while there are still days left to act on
+                it.
               </p>
               <p>
-                That pace sits in the same brief as salesperson performance and the
-                service drive. The morning meeting starts from one page instead of from
-                reports someone had to piece together.
+                That pace lands in the same brief as salesperson performance and the
+                service drive. The morning meeting starts from one page. The reports
+                were already pieced together.
               </p>
             </div>
             <SellingDayDiagram />
+          </div>
+        </section>
+
+        <section id="watch" className="section tone-band" aria-labelledby="watch-title">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Also on watch</p>
+              <h2 id="watch-title">Reviews, the inbox, and work like that.</h2>
+              <p className="intro">
+                Grok Bot also keeps watch and tells a manager when something needs
+                them. Reviews and the inbox are two of these jobs. The same
+                watch-and-notify pattern covers other operational issues of that kind.
+              </p>
+            </div>
+            <div className="cards">
+              {WATCH.map((item) => (
+                <article key={item.title} className="card">
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -321,8 +366,8 @@ export default function App() {
               <h2 id="setup-title">It reads the reports you already run.</h2>
               <p className="intro">
                 Lidonick is built to be put in front of a general manager without a long
-                project. It brings the store's existing exports, emails, and reports
-                into one place.
+                project. It does the compiling from the store's existing exports,
+                emails, and reports.
               </p>
             </div>
             <div className="cards three">
@@ -348,9 +393,10 @@ export default function App() {
               <h3>The operating systems stay</h3>
               <p>
                 Lidonick does not replace the DMS or the other systems that operate the
-                store. It reads what those systems already produce. The time and money
-                it saves are the morning spent assembling reports, and the extra
-                reporting tools used only to stitch that picture together.
+                store. It reads what those systems already produce and does the
+                compiling from them. The time saved is the morning spent assembling
+                reports, chasing who is behind, and checking pace by hand, along with
+                extra reporting tools used only to stitch that picture together.
               </p>
             </aside>
           </div>
@@ -360,11 +406,12 @@ export default function App() {
           <div className="wrap questions-layout">
             <div>
               <p className="kicker">On demand</p>
-              <h2 id="questions-title">Ask when the brief raises a question.</h2>
+              <h2 id="questions-title">Ask it to take the next task.</h2>
               <p>
-                The morning brief is the standing report. During the day, a manager can
-                ask about a salesperson, a pace gap, or an exception without pulling the
-                files again. Same information. One place.
+                The morning brief is the standing result, not the whole job. During the
+                day a manager can ask Lidonick to keep going: a salesperson, a pace
+                gap, or an exception. It does that from the same information, so the
+                files stay put.
               </p>
             </div>
             <div>
@@ -384,9 +431,10 @@ export default function App() {
               <p className="kicker">See it on your store</p>
               <h2 id="demo-title">Request a demo</h2>
               <p className="intro">
-                Bring the way your store already reports the month. A demo walks through
-                the brief a general manager and a sales manager would read, using the
-                kinds of exports and reports you have today.
+                Bring the way your store already reports the month. A demo shows what
+                Grok Bot would take on for a general manager and a sales manager:
+                the morning brief, pace, reviews, and the inbox, using the exports
+                and reports you have today.
               </p>
             </div>
             <div>
@@ -406,8 +454,9 @@ export default function App() {
           <div>
             <p className="footer-brand">Lidonick</p>
             <p className="footer-note">
-              An AI executive assistant for dealership general managers and sales
-              managers. Internal to the store.
+              Grok Bot for dealership general managers and sales managers. It takes
+              on the compiling and the watch work so they can run the store. Internal
+              to the store.
             </p>
           </div>
           <nav aria-label="Footer">
