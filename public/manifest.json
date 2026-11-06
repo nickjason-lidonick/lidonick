@@ -1,6 +1,7 @@
 {
   "short_name": "Lidonick",
   "name": "Lidonick",
+  "description": "AI executive assistant for dealership general managers and sales managers.",
   "icons": [
     {
       "src": "favicon.svg",
@@ -25,6 +26,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0a0a0a",
-  "background_color": "#0a0a0a"
+  "theme_color": "#1e3d34",
+  "background_color": "#f3f0e8"
 }
