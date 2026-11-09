@@ -1,55 +1,100 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import fs from "fs";
 import path from "path";
-import App from "./App";
+import App, { BOOKING_URL, bookingHref } from "./App";
+
+const TITLE = "Lidonick - Your store's AI, set up the right way";
 
 function read(relativePath) {
   return fs.readFileSync(path.join(__dirname, relativePath), "utf8");
 }
 
-test("presents Lidonick as an internal executive assistant for dealership managers", () => {
+test("presents one-time setup for a store's own AI, not a product for sale", () => {
   render(<App />);
 
   expect(
     screen.getByRole("heading", {
       level: 1,
-      name: /time back for the people who run the store/i,
+      name: "You're only as good as your prompt.",
     })
   ).toBeInTheDocument();
 
   expect(
-    screen.getByRole("heading", { name: /general manager and the sales manager/i })
+    screen.getByRole("heading", {
+      name: "Dealers are paying for software they could build themselves.",
+    })
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("heading", { name: /four things, already done, every morning/i })
+    screen.getByRole("heading", { name: "Dealer experience plus prompt expertise." })
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("heading", { name: /monthly objectives, checked against selling days/i })
+    screen.getByRole("heading", { name: "No subscriptions. No contracts. No SaaS." })
+  ).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: "How it works" })).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: "Help for every seat in the store." })
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("heading", { name: /reports you already run/i })
+    screen.getByRole("heading", { name: "What a well-prompted agent can do." })
   ).toBeInTheDocument();
-  expect(screen.getByRole("heading", { name: /request a demo/i })).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: "Find out what your AI can take off your plate." })
+  ).toBeInTheDocument();
 
-  expect(
-    screen.getByRole("heading", { name: /reviews, the inbox, and work like that/i })
-  ).toBeInTheDocument();
-  expect(document.body).toHaveTextContent(/grok bot/i);
-  expect(document.body).toHaveTextContent(/google, yelp, and similar sites/i);
-  expect(document.body).toHaveTextContent(/email complaints/i);
-  expect(document.body).toHaveTextContent(/agentic assistant/i);
-  expect(document.body).toHaveTextContent(/does the compiling/i);
-  expect(document.body).toHaveTextContent(/not a chatbot for shoppers/i);
-  expect(document.body).toHaveTextContent(/does not replace the dms/i);
-  expect(document.body).toHaveTextContent(/csv exports/i);
-  expect(document.body).toHaveTextContent(/forwarded emails/i);
-  expect(document.body).toHaveTextContent(/service drive/i);
-  expect(document.body).toHaveTextContent(/exceptions/i);
+  [
+    "Salespeople",
+    "Sales managers",
+    "General managers",
+    "Service directors",
+    "F&I and BDC",
+    "One-time fee.",
+    "You own it.",
+    "Nothing to rip out.",
+    "Less dependence on big software companies.",
+    "Book a call.",
+    "We map it out.",
+    "We build it with you.",
+    "You run it.",
+  ].forEach((label) => {
+    expect(screen.getByRole("heading", { name: label })).toBeInTheDocument();
+  });
+
+  expect(document.body).toHaveTextContent("We don't sell software.");
+  expect(document.body).toHaveTextContent(
+    "You pay once for the setup, not every month."
+  );
+  expect(document.body).toHaveTextContent(
+    "The agents and workflows live in your own accounts, not ours."
+  );
+  expect(document.body).toHaveTextContent("Your DMS and CRM stay right where they are.");
+  expect(document.body).toHaveTextContent(
+    "Build a GM's morning brief from existing reports, CSVs, and forwarded emails."
+  );
+  expect(document.body).toHaveTextContent(
+    "Watch the store's reviews on Google, Yelp, and other sites, and alert the right person when a really good or really bad one comes in."
+  );
+  expect(document.body).toHaveTextContent(
+    "Lidonick · Dealer and prompt expertise. One-time setup, no subscriptions."
+  );
+
+  expect(document.body.textContent).not.toMatch(/grok/i);
+  expect(document.body.textContent).not.toMatch(/request a demo/i);
   expect(document.body.textContent).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  expect(document.body.textContent).not.toMatch(/\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/);
 
-  const demoLinks = screen.getAllByRole("link", { name: /request a demo/i });
-  expect(demoLinks.length).toBeGreaterThan(1);
-  demoLinks.forEach((link) => expect(link).toHaveAttribute("href", "#demo"));
+  expect(BOOKING_URL).toBe("");
+  const bookLinks = screen.getAllByRole("link", { name: /^book a call$/i });
+  expect(bookLinks.length).toBeGreaterThan(2);
+  bookLinks.forEach((link) => {
+    expect(link).toHaveAttribute("href", "#closing");
+    expect(link).not.toHaveAttribute("target");
+  });
+});
+
+test("booking href stays empty-safe and uses a provided url", () => {
+  expect(bookingHref("")).toBe("#closing");
+  expect(bookingHref("   ")).toBe("#closing");
+  expect(bookingHref("https://example.com/book")).toBe("https://example.com/book");
 });
 
 test("opens and closes the section menu", () => {
@@ -61,22 +106,40 @@ test("opens and closes the section menu", () => {
   expect(menu).toHaveAttribute("aria-expanded", "true");
 
   const primary = screen.getByRole("navigation", { name: /primary/i });
-  fireEvent.click(within(primary).getByRole("link", { name: /^pace$/i }));
+  fireEvent.click(within(primary).getByRole("link", { name: /^what we do$/i }));
   expect(menu).toHaveAttribute("aria-expanded", "false");
 });
 
-test("public metadata describes the executive assistant", () => {
+test("document title and descriptions use the approved line", () => {
   const html = read("../public/index.html");
-  const manifest = read("../public/manifest.json");
+  const manifest = JSON.parse(read("../public/manifest.json"));
+  const appSource = read("App.js");
 
-  expect(html).toMatch(
-    /<title>Lidonick — Grok Bot for dealership managers<\/title>/
-  );
-  expect(html).toMatch(/general managers and sales managers/i);
-  expect(html).toMatch(/name="description"/);
-  expect(manifest).toMatch(/Grok Bot/i);
+  expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(TITLE);
+  [
+    'name="description"',
+    'property="og:title"',
+    'property="og:description"',
+    'name="twitter:title"',
+    'name="twitter:description"',
+  ].forEach((attribute) => {
+    expect(html).toContain(`<meta ${attribute} content="${TITLE}" />`);
+  });
 
-  const source = [html, manifest, read("App.js"), read("App.css")].join("\n");
-  expect(source).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
-  expect(source).not.toMatch(/type="password"|password\s*[:=]/i);
+  expect(manifest.description).toBe(TITLE);
+  expect(manifest.name).toBe("Lidonick");
+  expect(appSource.match(/BOOKING_URL\s*=/g)).toHaveLength(1);
+
+  const shipped = [
+    html,
+    JSON.stringify(manifest),
+    appSource,
+    read("App.css"),
+    read("index.js"),
+    read("index.css"),
+  ].join("\n");
+  expect(shipped).not.toMatch(/grok/i);
+  expect(shipped).not.toMatch(/request a demo/i);
+  expect(shipped).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  expect(shipped).not.toMatch(/type="password"|password\s*[:=]/i);
 });

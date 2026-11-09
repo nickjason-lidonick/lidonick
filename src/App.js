@@ -1,132 +1,112 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+// Destination for every "Book a call" control.
+// Leave this empty until a real booking link is provided.
+// An empty value scrolls those controls to the closing section.
+export const BOOKING_URL = "";
+
+const CLOSING_ID = "closing";
+
+export function bookingHref(url = BOOKING_URL) {
+  const value = typeof url === "string" ? url.trim() : "";
+  return value || `#${CLOSING_ID}`;
+}
+
 const NAV = [
-  { href: "#who", label: "Who it's for" },
-  { href: "#brief", label: "The brief" },
-  { href: "#pace", label: "Pace" },
-  { href: "#setup", label: "Setup" },
+  { href: "#problem", label: "The problem" },
+  { href: "#what", label: "What we do" },
+  { href: "#how", label: "How it works" },
+  { href: "#who", label: "Who we help" },
 ];
 
-const BRIEF_PREVIEW = [
-  ["Units and pace", "This month's objective against selling days elapsed."],
-  ["Salespeople", "Who is ahead of pace, and who is behind."],
-  ["Service drive", "How the drive is performing this morning."],
-  ["Exceptions", "What needs a manager before the day moves on."],
+const FOOTER_NAV = [
+  ...NAV,
+  { href: "#different", label: "How it's different" },
+  { href: "#examples", label: "Examples" },
 ];
 
-const BRIEF_PARTS = [
+const DIFFERENCES = [
   {
-    title: "Units and pace",
-    text: "Lidonick checks where the store stands against this month's manufacturer objectives, using the selling days already used, not only the unit count.",
+    label: "One-time fee.",
+    text: "You pay once for the setup, not every month.",
   },
   {
-    title: "Salesperson performance",
-    text: "Lidonick finds who on the floor is ahead of pace and who is behind, so the sales meeting starts with the people who need attention.",
+    label: "You own it.",
+    text: "The agents and workflows live in your own accounts, not ours.",
   },
   {
-    title: "Service drive",
-    text: "Lidonick reads how the drive is performing and puts it in the same brief as sales, so the morning does not depend on a separate report.",
+    label: "Nothing to rip out.",
+    text: "Your DMS and CRM stay right where they are.",
   },
   {
-    title: "Exceptions",
-    text: "Lidonick surfaces what does not fit the plan and needs a manager today: a pace miss, someone far off their number, or a problem on the drive.",
-  },
-];
-
-const SOURCES = [
-  {
-    title: "CSV exports",
-    text: "Files the store's systems already allow someone to download.",
-  },
-  {
-    title: "Forwarded emails",
-    text: "The messages managers already pass around when they share the numbers.",
-  },
-  {
-    title: "Existing reports",
-    text: "Reports the store already runs. Lidonick uses them to do the compiling.",
+    label: "Less dependence on big software companies.",
+    text: "You stop renting tools for work your own AI can do.",
   },
 ];
 
 const STEPS = [
   {
-    title: "Send what you already have",
-    text: "CSV exports, forwarded emails, and the reports used to run the month. The store keeps its system of record.",
+    label: "Book a call.",
+    text: "Tell us your role and what's eating your day.",
   },
   {
-    title: "Set the month",
-    text: "Manufacturer objectives and the selling days on the calendar. Lidonick checks pace from those as the days pass.",
+    label: "We map it out.",
+    text: "We look at the reports, the inbox, the follow-ups, and the repetitive work, then pick what AI should handle first.",
   },
   {
-    title: "Take the morning, then ask",
-    text: "The general manager and the sales manager get the morning email or brief, with the compiling already done. Through the day they can ask the assistant to take the next task.",
+    label: "We build it with you.",
+    text: "We write the prompts and set up the agents and workflows in your own AI tools.",
+  },
+  {
+    label: "You run it.",
+    text: "We show you how it works so your team can use it and adjust it on their own.",
   },
 ];
 
-const QUESTIONS = [
-  "Who fell off pace over the last few selling days?",
-  "Which exceptions from yesterday are still open?",
-  "Is the service drive ahead or behind for the month?",
-  "Which salespeople are ahead of their own pace?",
-  "Did a really good or really bad review come in?",
-  "Is there a complaint in the inbox that needs a manager?",
-];
-
-const WATCH = [
+const ROLES = [
   {
-    title: "Reviews",
-    text: "Grok Bot keeps an eye on the store's reviews on Google, Yelp, and similar sites. When a review is really good or really bad, it notifies the general manager.",
+    label: "Salespeople",
+    text: "Stay on top of follow-ups, draft texts and emails faster, prep before a customer walks in, and keep your pipeline organized.",
   },
   {
-    title: "Inbox",
-    text: "It monitors inboxes for email complaints and similar issues that need a manager, and brings those forward instead of leaving them to be found later.",
+    label: "Sales managers",
+    text: "See how each person is pacing against goal and get the numbers you need without building the report yourself.",
+  },
+  {
+    label: "General managers",
+    text: "Start each morning with a brief on units, pace against manufacturer objectives and selling days, salesperson performance, the service drive, and anything that needs your attention.",
+  },
+  {
+    label: "Service directors",
+    text: "Keep an eye on reviews and customer complaints, catch problems on the drive sooner, and cut down on daily reporting and email.",
+  },
+  {
+    label: "F&I and BDC",
+    text: "Speed up the prep, paperwork and follow-up that keep you from your next customer.",
   },
 ];
 
-const DEMO_POINTS = [
-  "How the store tracks manufacturer objectives and selling days today",
-  "The compiling the general manager and the sales manager still do by hand",
-  "Which reviews and inbox issues should notify a manager",
-  "Which exports, emails, and reports would feed the assistant",
-  "What setup takes, and which extra reporting steps that work would replace",
+const EXAMPLES = [
+  "Build a GM's morning brief from existing reports, CSVs, and forwarded emails.",
+  "Watch the store's reviews on Google, Yelp, and other sites, and alert the right person when a really good or really bad one comes in.",
+  "Monitor an inbox for customer complaints and flag them before they grow.",
+  "Answer questions on demand about pace, people, and performance.",
 ];
 
-function SellingDayDiagram() {
-  const elapsed = 9;
-  const remaining = 8;
+function BookCall({ className, onClick }) {
+  const href = bookingHref();
+  const external = /^https?:\/\//i.test(href);
 
   return (
-    <figure className="pace-figure">
-      <figcaption>
-        A diagram of a selling-day calendar, not a store's results. The month's
-        objective is spread across the days. Each morning, units delivered are
-        compared with the days already used.
-      </figcaption>
-      <div className="day-track" aria-hidden="true">
-        {Array.from({ length: elapsed }, (_, index) => (
-          <span key={`elapsed-${index}`} className="day elapsed" />
-        ))}
-        <span className="day today" />
-        {Array.from({ length: remaining }, (_, index) => (
-          <span key={`remaining-${index}`} className="day remaining" />
-        ))}
-      </div>
-      <ul className="legend">
-        <li>
-          <span className="swatch elapsed" aria-hidden="true" />
-          Selling days elapsed
-        </li>
-        <li>
-          <span className="swatch today" aria-hidden="true" />
-          Today
-        </li>
-        <li>
-          <span className="swatch remaining" aria-hidden="true" />
-          Selling days left
-        </li>
-      </ul>
-    </figure>
+    <a
+      className={className}
+      href={href}
+      onClick={onClick}
+      {...(external ? { rel: "noopener noreferrer", target: "_blank" } : {})}
+    >
+      Book a call
+    </a>
   );
 }
 
@@ -191,9 +171,7 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <a className="button nav-cta" href="#demo" onClick={closeMenu}>
-              Request a demo
-            </a>
+            <BookCall className="button nav-cta" onClick={closeMenu} />
           </nav>
         </div>
       </header>
@@ -202,156 +180,74 @@ export default function App() {
         <section className="hero-wrap" aria-labelledby="hero-title">
           <div className="wrap hero">
             <div className="hero-copy">
-              <p className="eyebrow">Grok Bot for the dealership · Internal to the store</p>
-              <h1 id="hero-title">Time back for the people who run the store.</h1>
+              <h1 id="hero-title">You're only as good as your prompt.</h1>
               <p className="lead">
-                Lidonick integrates Grok Bot into the dealership. It is an agentic
-                assistant for general managers and sales managers: it does the work,
-                rather than leaving them a dashboard to interpret. It takes on the
-                tasks that consume the day without being the job. Assembling the
-                numbers, chasing which salesperson is behind, piecing reports
-                together, checking pace against selling days, watching reviews, and
-                flagging complaints. The time goes back to running the store.
-              </p>
-              <p className="note">
-                Each morning that work arrives as an email or brief they can act on:
-                units and pace, salesperson performance, the service drive, and the
-                exceptions that need attention. It is not a chatbot for shoppers. Setup
-                stays light. Lidonick works from the CSV exports, forwarded emails, and
-                reports the store already produces.
+                Lidonick helps dealership teams set up their own AI agents and workflows, the
+                right way, one time. We don't sell software. We bring the dealer knowledge and
+                the prompt expertise so the AI you already have access to actually works for your
+                store.
               </p>
               <div className="actions">
-                <a className="button" href="#demo">
-                  Request a demo
-                </a>
-                <a className="button secondary" href="#brief">
-                  See the brief
-                </a>
+                <BookCall className="button" />
               </div>
             </div>
 
             <figure className="brief">
               <figcaption className="brief-top">
-                <span>Morning brief</span>
-                <span>Example</span>
+                <span>What a well-prompted agent can do.</span>
               </figcaption>
-              <p className="brief-meta">For the general manager and the sales manager</p>
-              <dl>
-                {BRIEF_PREVIEW.map(([title, text]) => (
-                  <div key={title} className="brief-row">
-                    <dt>{title}</dt>
-                    <dd>{text}</dd>
-                  </div>
+              <ul className="preview-list">
+                {EXAMPLES.map((example) => (
+                  <li key={example}>{example}</li>
                 ))}
-              </dl>
-              <p className="brief-note">
-                An example of the morning brief. Lidonick fills it in from your store's reports.
-              </p>
+              </ul>
             </figure>
           </div>
         </section>
 
-        <section id="who" className="section" aria-labelledby="who-title">
-          <div className="wrap">
-            <div className="section-head">
-              <p className="kicker">Who it's for</p>
-              <h2 id="who-title">The general manager and the sales manager.</h2>
-              <p className="intro">
-                Built for the people accountable for the month. Lidonick takes the
-                compiling so they can run the store. Customers never see it.
-              </p>
-            </div>
-            <div className="cards">
-              <article className="card">
-                <h3>General managers</h3>
-                <p>
-                  You own the month. Grok Bot assembles units against the manufacturer
-                  objective, checks the pace the selling days require, reads the service
-                  drive, and surfaces the exceptions that cannot wait. It also tells you
-                  when a review or an inbox complaint needs you. You start the day
-                  running the store.
-                </p>
-              </article>
-              <article className="card">
-                <h3>Sales managers</h3>
-                <p>
-                  You own the floor. Lidonick finds who is ahead, who is behind, and
-                  which exceptions belong in the meeting. The files are already worked,
-                  so you can coach.
-                </p>
-              </article>
-            </div>
-            <aside className="callout">
-              <h3>Not a shopper chatbot</h3>
-              <p>
-                Lidonick stays inside the store. It does not sit on the website and it
-                does not talk to customers. It is a plug-and-play assistant for
-                managers, set up from reports the store already has, without a long
-                installation.
-              </p>
-            </aside>
-          </div>
-        </section>
-
-        <section id="brief" className="section tone-band" aria-labelledby="brief-title">
-          <div className="wrap">
-            <div className="section-head">
-              <p className="kicker">The brief</p>
-              <h2 id="brief-title">Four things, already done, every morning.</h2>
-              <p className="intro">
-                The morning brief is one way Grok Bot gives that time back. It has
-                already assembled the numbers, found who is behind, read the drive,
-                and surfaced the exceptions. The picture is ready for the meeting.
-              </p>
-            </div>
-            <div className="cards">
-              {BRIEF_PARTS.map((part) => (
-                <article key={part.title} className="card">
-                  <h3>{part.title}</h3>
-                  <p>{part.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="pace" className="section" aria-labelledby="pace-title">
-          <div className="wrap pace-layout">
+        <section id="problem" className="section" aria-labelledby="problem-title">
+          <div className="wrap split">
             <div>
-              <p className="kicker">Pace</p>
-              <h2 id="pace-title">Monthly objectives, checked against selling days.</h2>
-              <p>
-                Manufacturer (OEM) objectives are set for the month. A unit count by
-                itself does not say whether the store is on them. Checking pace against
-                the selling days is usually hand work. Lidonick does that check as the
-                days pass, so a gap shows up while there are still days left to act on
-                it.
-              </p>
-              <p>
-                That pace lands in the same brief as salesperson performance and the
-                service drive. The morning meeting starts from one page. The reports
-                were already pieced together.
-              </p>
+              <p className="kicker">The problem</p>
+              <h2 id="problem-title">Dealers are paying for software they could build themselves.</h2>
             </div>
-            <SellingDayDiagram />
+            <p>
+              Every year brings another subscription, another long-term contract, and another
+              tool that only does part of the job. Meanwhile, today's AI assistants can already
+              handle much of that work, as long as they're set up with the right instructions.
+              Most stores just don't have the time or the know-how to do it.
+            </p>
           </div>
         </section>
 
-        <section id="watch" className="section tone-band" aria-labelledby="watch-title">
+        <section id="what" className="section tone-band" aria-labelledby="what-title">
+          <div className="wrap split">
+            <div>
+              <p className="kicker">What we do</p>
+              <h2 id="what-title">Dealer experience plus prompt expertise.</h2>
+            </div>
+            <p>
+              We know how a dealership runs, and we know how to talk to AI. We sit down with your
+              people, learn where their time goes, and build agents and agentic workflows in your
+              own AI tools to take that work off their plate. When we're done, everything belongs
+              to you.
+            </p>
+          </div>
+        </section>
+
+        <section id="different" className="section" aria-labelledby="different-title">
           <div className="wrap">
             <div className="section-head">
-              <p className="kicker">Also on watch</p>
-              <h2 id="watch-title">Reviews, the inbox, and work like that.</h2>
-              <p className="intro">
-                Grok Bot also keeps watch and tells a manager when something needs
-                them. Reviews and the inbox are two of these jobs. The same
-                watch-and-notify pattern covers other operational issues of that kind.
-              </p>
+              <p className="kicker">How it's different</p>
+              <h2 id="different-title">No subscriptions. No contracts. No SaaS.</h2>
             </div>
             <div className="cards">
-              {WATCH.map((item) => (
-                <article key={item.title} className="card">
-                  <h3>{item.title}</h3>
+              {DIFFERENCES.map((item, index) => (
+                <article key={item.label} className="card">
+                  <span className="card-index" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{item.label}</h3>
                   <p>{item.text}</p>
                 </article>
               ))}
@@ -359,113 +255,82 @@ export default function App() {
           </div>
         </section>
 
-        <section id="setup" className="section tone-band" aria-labelledby="setup-title">
+        <section id="how" className="section tone-band" aria-labelledby="how-title">
           <div className="wrap">
             <div className="section-head">
-              <p className="kicker">Light setup</p>
-              <h2 id="setup-title">It reads the reports you already run.</h2>
-              <p className="intro">
-                Lidonick is built to be put in front of a general manager without a long
-                project. It does the compiling from the store's existing exports,
-                emails, and reports.
-              </p>
-            </div>
-            <div className="cards three">
-              {SOURCES.map((source) => (
-                <article key={source.title} className="card">
-                  <h3>{source.title}</h3>
-                  <p>{source.text}</p>
-                </article>
-              ))}
+              <h2 id="how-title">How it works</h2>
             </div>
             <ol className="steps">
               {STEPS.map((step, index) => (
-                <li key={step.title}>
+                <li key={step.label}>
                   <span className="step-num">{index + 1}</span>
                   <div>
-                    <h3>{step.title}</h3>
+                    <h3>{step.label}</h3>
                     <p>{step.text}</p>
                   </div>
                 </li>
               ))}
             </ol>
-            <aside className="callout">
-              <h3>The operating systems stay</h3>
-              <p>
-                Lidonick does not replace the DMS or the other systems that operate the
-                store. It reads what those systems already produce and does the
-                compiling from them. The time saved is the morning spent assembling
-                reports, chasing who is behind, and checking pace by hand, along with
-                extra reporting tools used only to stitch that picture together.
-              </p>
-            </aside>
           </div>
         </section>
 
-        <section id="questions" className="section" aria-labelledby="questions-title">
-          <div className="wrap questions-layout">
-            <div>
-              <p className="kicker">On demand</p>
-              <h2 id="questions-title">Ask it to take the next task.</h2>
-              <p>
-                The morning brief is the standing result, not the whole job. During the
-                day a manager can ask Lidonick to keep going: a salesperson, a pace
-                gap, or an exception. It does that from the same information, so the
-                files stay put.
-              </p>
+        <section id="who" className="section" aria-labelledby="who-title">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Who we help</p>
+              <h2 id="who-title">Help for every seat in the store.</h2>
             </div>
-            <div>
-              <p className="kicker">Examples of questions</p>
-              <ul className="questions">
-                {QUESTIONS.map((question) => (
-                  <li key={question}>{question}</li>
-                ))}
-              </ul>
+            <div className="role-sheet">
+              {ROLES.map((role) => (
+                <article key={role.label} className="role">
+                  <h3>{role.label}</h3>
+                  <p>{role.text}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="demo" className="section tone-demo" aria-labelledby="demo-title">
-          <div className="wrap demo-layout">
+        <section id="examples" className="section tone-band" aria-labelledby="examples-title">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Examples</p>
+              <h2 id="examples-title">What a well-prompted agent can do.</h2>
+            </div>
+            <ul className="statements">
+              {EXAMPLES.map((example) => (
+                <li key={example}>{example}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section id={CLOSING_ID} className="section tone-demo" aria-labelledby="closing-title">
+          <div className="wrap closing">
             <div>
-              <p className="kicker">See it on your store</p>
-              <h2 id="demo-title">Request a demo</h2>
-              <p className="intro">
-                Bring the way your store already reports the month. A demo shows what
-                Grok Bot would take on for a general manager and a sales manager:
-                the morning brief, pace, reviews, and the inbox, using the exports
-                and reports you have today.
+              <h2 id="closing-title">Find out what your AI can take off your plate.</h2>
+              <p>
+                Book a call. Tell us about your role, and we'll show you what's possible with
+                tools you already have.
               </p>
             </div>
-            <div>
-              <h3>What the conversation covers</h3>
-              <ul className="checklist">
-                {DEMO_POINTS.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
+            <BookCall className="button" />
           </div>
         </section>
       </main>
 
       <footer className="footer">
         <div className="wrap footer-inner">
-          <div>
-            <p className="footer-brand">Lidonick</p>
-            <p className="footer-note">
-              Grok Bot for dealership general managers and sales managers. It takes
-              on the compiling and the watch work so they can run the store. Internal
-              to the store.
-            </p>
-          </div>
+          <p className="footer-line">
+            Lidonick · Dealer and prompt expertise. One-time setup, no subscriptions.
+          </p>
           <nav aria-label="Footer">
-            {NAV.map((item) => (
+            {FOOTER_NAV.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
               </a>
             ))}
-            <a href="#demo">Request a demo</a>
+            <BookCall />
           </nav>
         </div>
       </footer>
