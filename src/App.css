@@ -110,8 +110,11 @@
   margin-left: 0.35rem;
 }
 
-.nav-cta:hover {
-  color: var(--cream);
+.nav a.nav-cta,
+.nav a.nav-cta:hover,
+.nav a.nav-cta:focus,
+.nav a.nav-cta:focus-visible {
+  color: #fff;
 }
 
 a:focus-visible,
