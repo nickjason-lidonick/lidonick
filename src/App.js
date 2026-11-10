@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 // Destination for every "Book a call" control.
@@ -104,6 +104,118 @@ const EXAMPLES = [
   "Monitor an inbox for customer complaints and flag them before they grow.",
   "Answer questions on demand about pace, people, and performance.",
 ];
+
+const CALL_FORM_ENDPOINT = "https://formspree.io/f/mpqbobry";
+
+function CallForm() {
+  const gotchaRef = useRef(null);
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [notes, setNotes] = useState("");
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (!name.trim() || !contact.trim()) {
+      setError("Add your name and a phone or email.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sending");
+    setError("");
+    try {
+      const response = await fetch(CALL_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          "Phone or email": contact.trim(),
+          notes: notes.trim(),
+          _subject: "New Lidonick call request",
+          _gotcha: gotchaRef.current ? gotchaRef.current.value : "",
+        }),
+      });
+      if (!response.ok) {
+        setError("Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <p className="call-status" role="status">
+        Thanks, we'll be in touch soon.
+      </p>
+    );
+  }
+
+  return (
+    <form className="call-form" onSubmit={onSubmit} noValidate>
+      {status === "error" ? (
+        <p className="call-error" role="alert">
+          {error}
+        </p>
+      ) : null}
+      <label htmlFor="call-name">
+        Name
+        <input
+          id="call-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          required
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+      </label>
+      <label htmlFor="call-contact">
+        Phone or email
+        <input
+          id="call-contact"
+          name="phone_or_email"
+          type="text"
+          autoComplete="on"
+          required
+          value={contact}
+          onChange={(event) => setContact(event.target.value)}
+        />
+      </label>
+      <label htmlFor="call-notes">
+        Notes
+        <textarea
+          id="call-notes"
+          name="notes"
+          rows="4"
+          value={notes}
+          onChange={(event) => setNotes(event.target.value)}
+        />
+      </label>
+      <input
+        ref={gotchaRef}
+        className="call-gotcha"
+        type="text"
+        name="_gotcha"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
+      <button className="button" type="submit" disabled={status === "sending"}>
+        Book a call
+      </button>
+    </form>
+  );
+}
 
 function BookCall({ className, onClick }) {
   const href = bookingHref();
@@ -335,7 +447,7 @@ export default function App() {
                 tools you already have.
               </p>
             </div>
-            <BookCall className="button" />
+            <CallForm />
           </div>
         </section>
       </main>

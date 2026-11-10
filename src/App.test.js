@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import fs from "fs";
 import path from "path";
 import App, { BOOKING_URL, bookingHref } from "./App";
@@ -108,6 +108,56 @@ test("presents one-time setup for a store's own AI, not a product for sale", () 
     expect(link).toHaveAttribute("href", "#book");
     expect(link).not.toHaveAttribute("target");
   });
+});
+
+test("submits the booking form and shows success or an inline error", async () => {
+  const fetchMock = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ ok: true }),
+  });
+  global.fetch = fetchMock;
+
+  render(<App />);
+  const section = document.getElementById("book");
+  expect(section).toContainElement(screen.getByLabelText(/^name$/i));
+
+  fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
+  expect(screen.getByRole("alert")).toHaveTextContent(/add your name and a phone or email/i);
+  expect(fetchMock).not.toHaveBeenCalled();
+
+  fireEvent.change(screen.getByLabelText(/^name$/i), {
+    target: { value: "TEST - Lidonick site" },
+  });
+  fireEvent.change(screen.getByLabelText(/^phone or email$/i), {
+    target: { value: "555-010-0199" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
+  expect(screen.getByRole("button", { name: /^book a call$/i })).toBeDisabled();
+
+  expect(await screen.findByRole("status")).toHaveTextContent("Thanks, we'll be in touch soon.");
+  expect(fetchMock).toHaveBeenCalledWith(
+    "https://formspree.io/f/mpqbobry",
+    expect.objectContaining({
+      method: "POST",
+      headers: expect.objectContaining({ Accept: "application/json" }),
+    })
+  );
+  const payload = JSON.parse(fetchMock.mock.calls[0][1].body);
+  expect(payload._subject).toBe("New Lidonick call request");
+  expect(payload._gotcha).toBe("");
+  expect(payload.name).toBe("TEST - Lidonick site");
+
+  cleanup();
+  fetchMock.mockResolvedValueOnce({ ok: false, json: async () => ({}) });
+  render(<App />);
+  fireEvent.change(screen.getByLabelText(/^name$/i), { target: { value: "Ada" } });
+  fireEvent.change(screen.getByLabelText(/^phone or email$/i), {
+    target: { value: "555-010-0100" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
+  expect(await screen.findByRole("alert")).toHaveTextContent(/something went wrong/i);
+
+  delete global.fetch;
 });
 
 test("booking href stays empty-safe and uses a provided url", () => {
