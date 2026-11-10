@@ -194,16 +194,18 @@ test("document title and descriptions use the approved line", () => {
   const manifest = JSON.parse(read("../public/manifest.json"));
   const appSource = read("App.js");
 
+  const description =
+    "Dealers are paying for software they could build themselves. Lidonick helps dealership staff set up their own AI agents and workflows for a one-time fee. No subscriptions. Book a call.";
+
   expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(TITLE);
-  [
-    'name="description"',
-    'property="og:title"',
-    'property="og:description"',
-    'name="twitter:title"',
-    'name="twitter:description"',
-  ].forEach((attribute) => {
+  ["property=\"og:title\"", "name=\"twitter:title\""].forEach((attribute) => {
     expect(html).toContain(`<meta ${attribute} content="${TITLE}" />`);
   });
+  ["name=\"description\"", "property=\"og:description\"", "name=\"twitter:description\""].forEach(
+    (attribute) => {
+      expect(html).toContain(`<meta ${attribute} content="${description}" />`);
+    }
+  );
 
   expect(manifest.description).toBe(TITLE);
   expect(manifest.name).toBe("Lidonick");

@@ -19,10 +19,10 @@ const PAGES = [
   {
     file: "public/grok-bot-for-car-dealerships/index.html",
     path: "/grok-bot-for-car-dealerships",
-    title: "Grok Bot for Car Dealerships: A Role-by-Role Guide",
+    title: "Grok Bot for Car Dealerships | Lidonick",
     description:
-      "How GMs, sales, service, F&I and BDC teams can put Grok Bot and other AI agents to work, with real examples, safe setup steps and a dealer-first FAQ.",
-    h1: "Grok Bot for Car Dealerships: How Every Role in the Store Can Use It",
+      "A role-by-role look at Grok Bot in a car dealership, from the GM to sales, service, F&I, and the BDC. Then book a call to set it up in your store.",
+    h1: "How every role in the store can use Grok Bot",
     questions: [
       "What is Grok Bot?",
       "Can Grok Bot work with my DMS or CRM?",
@@ -36,10 +36,10 @@ const PAGES = [
   {
     file: "public/grok-bot-prompts-for-car-dealerships/index.html",
     path: "/grok-bot-prompts-for-car-dealerships",
-    title: "Grok Bot Prompts for Car Dealerships, by Role",
+    title: "Grok Bot Prompts for Sales, Service, and F&I | Lidonick",
     description:
-      "Copy-ready Grok Bot and AI agent prompts for dealership GMs, sales, service, F&I and BDC, plus the five-part formula that makes any dealer prompt work.",
-    h1: "Grok Bot Prompts for Car Dealerships: Copy-Ready Examples for Every Role",
+      "Ready-to-use Grok Bot prompts for dealership sales, service, F&I, GMs, and BDC teams, plus the formula behind a prompt that actually works.",
+    h1: "Copy-ready prompts for the dealership floor",
     questions: [
       "Do these prompts only work in Grok Bot?",
       "How long should a dealership AI prompt be?",
@@ -55,9 +55,9 @@ const NAV_PAGES = [
   {
     file: "public/the-problem-with-dealership-software/index.html",
     path: "/the-problem-with-dealership-software",
-    title: "The Problem With Dealership Software Costs | Lidonick",
+    title: "Dealers Are Paying for Software They Could Build Themselves | Lidonick",
     description:
-      "Dealers keep adding subscriptions and long contracts for tools that do part of the job. See how AI you already have can do more of that work, set up once.",
+      "Dealerships keep adding subscriptions and long contracts for tools that only do part of the job. Today's AI can do more of that work when it's set up the right way.",
     h1: "Dealers Are Paying for Software They Could Build Themselves",
     questions: [
       "Why are dealership software costs so high?",
@@ -70,10 +70,10 @@ const NAV_PAGES = [
   {
     file: "public/ai-consulting-for-car-dealerships/index.html",
     path: "/ai-consulting-for-car-dealerships",
-    title: "AI Consulting for Car Dealerships | Lidonick",
+    title: "AI Consulting for Car Dealerships, No Subscription | Lidonick",
     description:
-      "Dealer experience plus prompt expertise. Lidonick helps dealership staff set up their own AI agents and workflows for a one-time fee. No SaaS.",
-    h1: "AI Consulting for Car Dealerships: Dealer Experience Plus Prompt Expertise",
+      "Lidonick is AI consulting for car dealerships: a one-time fee to help your staff set up their own AI agents and workflows. No SaaS, no long-term contract.",
+    h1: "Dealer experience. Prompt expertise. One-time setup.",
     questions: [
       "What does an AI consultant for car dealerships do?",
       "Do you sell AI software or an AI platform?",
@@ -86,10 +86,10 @@ const NAV_PAGES = [
   {
     file: "public/how-dealership-ai-setup-works/index.html",
     path: "/how-dealership-ai-setup-works",
-    title: "How Dealership AI Agent Setup Works | Lidonick",
+    title: "How Dealership AI Setup Works | Lidonick",
     description:
-      "Four steps: book a call, map the work, build your AI agents and workflows with you, then hand it over. One-time fee, no subscriptions, nothing to rip out.",
-    h1: "How It Works: Setting Up Your Dealership's AI Agents in Four Steps",
+      "Book a call, map the work, build your dealership's AI agents with you, then hand it over. One-time fee, no subscriptions, nothing to rip out of your DMS or CRM.",
+    h1: "Four steps, then it's yours",
     questions: [
       "How do I set up AI agents at my dealership?",
       "Do we need to change our DMS or CRM?",
@@ -101,10 +101,10 @@ const NAV_PAGES = [
   {
     file: "public/ai-for-dealership-staff/index.html",
     path: "/ai-for-dealership-staff",
-    title: "AI for Car Dealership Staff, Every Role | Lidonick",
+    title: "AI for Every Role in the Dealership | Lidonick",
     description:
-      "AI agents for dealership GMs, sales managers, salespeople, service directors, F&I and BDC. Set up in your own tools for one fee, no subscription.",
-    h1: "Who We Help: AI for Every Seat in the Dealership",
+      "AI agents for dealership GMs, sales, service, F&I, and BDC teams, set up in the tools you already use. One fee, no subscription.",
+    h1: "From the GM to the BDC",
     questions: [
       "Which dealership roles can use AI agents?",
       "Can a single salesperson work with Lidonick, or only the whole store?",
@@ -150,15 +150,18 @@ test.each(PAGES)("$path is crawlable HTML with schema", (page) => {
   const graph = jsonLd(html);
   const canonical = `https://www.lidonick.com${page.path}`;
 
-  expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(page.title);
-  expect(flat).toContain(
-    `name="description" content="${page.description.replaceAll("&", "&amp;")}"`
-  );
+  const encoded = (value) => value.replaceAll("&", "&amp;");
+  expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(encoded(page.title));
+  expect(flat).toContain(`name="description" content="${encoded(page.description)}"`);
   expect(html).toContain(`rel="canonical" href="${canonical}"`);
-  expect(html).toContain(`property="og:title" content="${page.title}"`);
+  expect(html).toContain(`property="og:title" content="${encoded(page.title)}"`);
   expect(html).toContain(`property="og:url" content="${canonical}"`);
-  expect(html).toContain(`name="twitter:title" content="${page.title}"`);
-  expect(html).toContain(`<h1>${page.h1}</h1>`);
+  expect(html).toContain(`name="twitter:title" content="${encoded(page.title)}"`);
+  expect(html).toMatch(new RegExp(`<h1[^>]*>${page.h1}</h1>`));
+  expect(html).toContain('src="/book-form.js"');
+  expect(html).toContain('name="phone"');
+  expect(html).toContain('name="email"');
+  expect(html).not.toContain('name="notes"');
   expect(text).not.toMatch(/lorem ipsum/i);
   expect(html).toContain('href="/#book"');
   expect(html).toContain('href="/"');
@@ -196,13 +199,18 @@ test.each(NAV_PAGES)("$path is crawlable HTML with schema", (page) => {
   const graph = jsonLd(html);
   const canonical = `https://www.lidonick.com${page.path}`;
 
-  expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(page.title);
-  expect(flat).toContain(`name="description" content="${page.description.replaceAll("&", "&amp;")}"`);
+  const encoded = (value) => value.replaceAll("&", "&amp;");
+  expect(html.match(/<title>([^<]*)<\/title>/)[1]).toBe(encoded(page.title));
+  expect(flat).toContain(`name="description" content="${encoded(page.description)}"`);
   expect(html).toContain(`rel="canonical" href="${canonical}"`);
-  expect(html).toContain(`property="og:title" content="${page.title}"`);
+  expect(html).toContain(`property="og:title" content="${encoded(page.title)}"`);
   expect(html).toContain(`property="og:url" content="${canonical}"`);
-  expect(html).toContain(`name="twitter:title" content="${page.title}"`);
-  expect(html).toContain(`<h1>${page.h1}</h1>`);
+  expect(html).toContain(`name="twitter:title" content="${encoded(page.title)}"`);
+  expect(html).toMatch(new RegExp(`<h1[^>]*>${page.h1}</h1>`));
+  expect(html).toContain('src="/book-form.js"');
+  expect(html).toContain('name="phone"');
+  expect(html).toContain('name="email"');
+  expect(html).not.toContain('name="notes"');
   expect(text).not.toMatch(/lorem ipsum/i);
   expect(html).not.toMatch(/Nick Jason/);
   expect(html).toContain('href="/#book"');

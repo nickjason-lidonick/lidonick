@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1e3d34" />
-    <title>The Problem With Dealership Software Costs | Lidonick</title>
-    <meta name="description" content="Dealers keep adding subscriptions and long contracts for tools that do part of the job. See how AI you already have can do more of that work, set up once." />
+    <title>Dealers Are Paying for Software They Could Build Themselves | Lidonick</title>
+    <meta name="description" content="Dealerships keep adding subscriptions and long contracts for tools that only do part of the job. Today's AI can do more of that work when it's set up the right way." />
     <link rel="canonical" href="https://www.lidonick.com/the-problem-with-dealership-software" />
-    <meta property="og:title" content="The Problem With Dealership Software Costs | Lidonick" />
-    <meta property="og:description" content="Dealers keep adding subscriptions and long contracts for tools that do part of the job. See how AI you already have can do more of that work, set up once." />
+    <meta property="og:title" content="Dealers Are Paying for Software They Could Build Themselves | Lidonick" />
+    <meta property="og:description" content="Dealerships keep adding subscriptions and long contracts for tools that only do part of the job. Today's AI can do more of that work when it's set up the right way." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.lidonick.com/the-problem-with-dealership-software" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="The Problem With Dealership Software Costs | Lidonick" />
-    <meta name="twitter:description" content="Dealers keep adding subscriptions and long contracts for tools that do part of the job. See how AI you already have can do more of that work, set up once." />
+    <meta name="twitter:title" content="Dealers Are Paying for Software They Could Build Themselves | Lidonick" />
+    <meta name="twitter:description" content="Dealerships keep adding subscriptions and long contracts for tools that only do part of the job. Today's AI can do more of that work when it's set up the right way." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,7 +26,7 @@
           {
             "@type": "WebPage",
             "name": "Dealers Are Paying for Software They Could Build Themselves",
-            "description": "Dealers keep adding subscriptions and long contracts for tools that do part of the job. See how AI you already have can do more of that work, set up once.",
+            "description": "Dealerships keep adding subscriptions and long contracts for tools that only do part of the job. Today's AI can do more of that work when it's set up the right way.",
             "url": "https://www.lidonick.com/the-problem-with-dealership-software",
             "isPartOf": {
               "@type": "WebSite",
@@ -136,7 +136,8 @@
           <span aria-hidden="true">/</span>
           <span aria-current="page">Dealers Are Paying for Software They Could Build Themselves</span>
         </nav>
-        <h1>Dealers Are Paying for Software They Could Build Themselves</h1>
+        <p class="kicker">The problem</p>
+        <h1 class="statement">Dealers Are Paying for Software They Could Build Themselves</h1>
         <p>
           Ask any GM or dealer principal what the store pays for software every month and you'll
           usually get a sigh before the number. Every year brings another subscription, another
@@ -255,7 +256,7 @@
           <a href="/ai-for-dealership-staff">who we help</a>, or read our
           <a href="/grok-bot-for-car-dealerships">guide to Grok Bot for car dealerships</a>.
         </p>
-        <p>Find out what your AI can take off your plate. <a href="/#book">Book a call</a>.</p>
+        <p>Find out what your AI can take off your plate. <a href="#book">Book a call</a>.</p>
 
         <h2>FAQ</h2>
         <h3>Why are dealership software costs so high?</h3>
@@ -284,8 +285,22 @@
         <p>
           Start with work your team rebuilds by hand every day, like reports, review checks, and
           follow-up lists. Those are often the easiest jobs to move into your own AI tools.
-          <a href="/#book">Book a call</a> and we'll help you pick the first one.
+          <a href="#book">Book a call</a> and we'll help you pick the first one.
         </p>
+        <aside class="call-close" id="book">
+          <h2>Book a call and pick the first job</h2>
+          <form class="call-form" novalidate>
+            <p class="call-error" role="alert" hidden></p>
+            <div class="call-grid">
+              <label for="call-name">Name<input id="call-name" name="name" type="text" autocomplete="name" required /></label>
+              <label for="call-phone">Phone<input id="call-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
+              <label for="call-email">Email<input id="call-email" name="email" type="email" autocomplete="email" inputmode="email" /></label>
+            </div>
+            <input class="call-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="button" type="submit">Book a call</button>
+          </form>
+          <p class="call-status" role="status" hidden>Thanks, we'll be in touch soon.</p>
+        </aside>
       </article>
     </main>
     <footer class="footer">
@@ -302,5 +317,6 @@
         </nav>
       </div>
     </footer>
+    <script src="/book-form.js"></script>
   </body>
 </html>

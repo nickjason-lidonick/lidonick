@@ -147,6 +147,9 @@
 
 .nav-cta {
   margin-left: 0.35rem;
+  min-height: 3.05rem;
+  padding: 0.72rem 1.4rem;
+  font-size: 1.0625rem;
 }
 
 .nav a.nav-cta,
@@ -287,6 +290,23 @@ p {
 
 .section {
   padding: 5rem 0;
+}
+
+#problem {
+  padding: 6.75rem 0 7rem;
+}
+
+#problem .kicker {
+  margin-bottom: 1.1rem;
+  font-size: 0.86rem;
+}
+
+#problem h2 {
+  max-width: 11em;
+  font-size: clamp(2.85rem, 5.8vw, 4.45rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.042em;
 }
 
 .tone-band {
@@ -703,6 +723,14 @@ section[id] {
 
   .section {
     padding: 3.5rem 0;
+  }
+
+  #problem {
+    padding: 4.25rem 0 4.5rem;
+  }
+
+  #problem h2 {
+    font-size: clamp(2.4rem, 11vw, 3.15rem);
   }
 
   .closing,
