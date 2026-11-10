@@ -14,10 +14,10 @@ export function bookingHref(url = BOOKING_URL) {
 }
 
 const NAV = [
-  { href: "#problem", label: "The problem" },
-  { href: "#what", label: "What we do" },
-  { href: "#how", label: "How it works" },
-  { href: "#who", label: "Who we help" },
+  { href: "/the-problem-with-dealership-software", label: "The problem" },
+  { href: "/ai-consulting-for-car-dealerships", label: "What we do" },
+  { href: "/how-dealership-ai-setup-works", label: "How it works" },
+  { href: "/ai-for-dealership-staff", label: "Who we help" },
 ];
 
 const FOOTER_NAV = [

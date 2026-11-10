@@ -78,6 +78,17 @@ test("presents one-time setup for a store's own AI, not a product for sale", () 
   );
 
   expect(document.body.textContent).not.toMatch(/request a demo/i);
+  [
+    ["The problem", "/the-problem-with-dealership-software"],
+    ["What we do", "/ai-consulting-for-car-dealerships"],
+    ["How it works", "/how-dealership-ai-setup-works"],
+    ["Who we help", "/ai-for-dealership-staff"],
+  ].forEach(([label, href]) => {
+    screen.getAllByRole("link", { name: label }).forEach((link) => {
+      expect(link).toHaveAttribute("href", href);
+    });
+  });
+  expect(screen.getByRole("link", { name: "How it's different" })).toHaveAttribute("href", "#different");
   expect(screen.getAllByRole("link", { name: "Grok Bot for car dealerships" }).length).toBeGreaterThan(0);
   expect(screen.getAllByRole("link", { name: "Grok Bot prompts for car dealerships" }).length).toBeGreaterThan(0);
   screen.getAllByRole("link", { name: "Grok Bot for car dealerships" }).forEach((link) => {
