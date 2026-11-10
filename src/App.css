@@ -106,6 +106,45 @@
   color: var(--cream);
 }
 
+.guides-menu {
+  position: relative;
+}
+
+.guides-menu summary {
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+}
+
+.guides-menu summary::-webkit-details-marker,
+.guides-menu summary::marker {
+  display: none;
+  content: "";
+}
+
+.guides-panel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  z-index: 20;
+  min-width: 18.5rem;
+  padding: 0.4rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(28, 25, 21, 0.08);
+}
+
+.guides-panel a {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+}
+
+.guides-panel a:hover {
+  background: rgba(30, 61, 52, 0.06);
+}
+
 .nav-cta {
   margin-left: 0.35rem;
 }
@@ -470,6 +509,15 @@ p {
   gap: 0.45rem;
 }
 
+.footer-label {
+  margin: 0 0 0.2rem;
+  color: #d9d3c8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .footer a {
   color: var(--cream);
   text-decoration: none;
@@ -514,6 +562,24 @@ section[id] {
 
   .nav a {
     padding: 0.7rem 0;
+  }
+
+  .guides-menu summary {
+    padding: 0.7rem 0;
+  }
+
+  .guides-panel {
+    position: static;
+    min-width: 0;
+    padding: 0 0 0.35rem 0.85rem;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .guides-panel a {
+    padding: 0.55rem 0;
   }
 
   .nav-cta {
