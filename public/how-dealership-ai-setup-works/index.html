@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1e3d34" />
-    <title>How Dealership AI Agent Setup Works | Lidonick</title>
-    <meta name="description" content="Four steps: book a call, map the work, build your AI agents and workflows with you, then hand it over. One-time fee, no subscriptions, nothing to rip out." />
+    <title>How Dealership AI Setup Works | Lidonick</title>
+    <meta name="description" content="Book a call, map the work, build your dealership's AI agents with you, then hand it over. One-time fee, no subscriptions, nothing to rip out of your DMS or CRM." />
     <link rel="canonical" href="https://www.lidonick.com/how-dealership-ai-setup-works" />
-    <meta property="og:title" content="How Dealership AI Agent Setup Works | Lidonick" />
-    <meta property="og:description" content="Four steps: book a call, map the work, build your AI agents and workflows with you, then hand it over. One-time fee, no subscriptions, nothing to rip out." />
+    <meta property="og:title" content="How Dealership AI Setup Works | Lidonick" />
+    <meta property="og:description" content="Book a call, map the work, build your dealership's AI agents with you, then hand it over. One-time fee, no subscriptions, nothing to rip out of your DMS or CRM." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.lidonick.com/how-dealership-ai-setup-works" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="How Dealership AI Agent Setup Works | Lidonick" />
-    <meta name="twitter:description" content="Four steps: book a call, map the work, build your AI agents and workflows with you, then hand it over. One-time fee, no subscriptions, nothing to rip out." />
+    <meta name="twitter:title" content="How Dealership AI Setup Works | Lidonick" />
+    <meta name="twitter:description" content="Book a call, map the work, build your dealership's AI agents with you, then hand it over. One-time fee, no subscriptions, nothing to rip out of your DMS or CRM." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,8 +25,8 @@
         "@graph": [
           {
             "@type": "WebPage",
-            "name": "How It Works: Setting Up Your Dealership's AI Agents in Four Steps",
-            "description": "Four steps: book a call, map the work, build your AI agents and workflows with you, then hand it over. One-time fee, no subscriptions, nothing to rip out.",
+            "name": "Four steps, then it's yours",
+            "description": "Book a call, map the work, build your dealership's AI agents with you, then hand it over. One-time fee, no subscriptions, nothing to rip out of your DMS or CRM.",
             "url": "https://www.lidonick.com/how-dealership-ai-setup-works",
             "isPartOf": {
               "@type": "WebSite",
@@ -91,7 +91,7 @@
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "How It Works: Setting Up Your Dealership's AI Agents in Four Steps",
+                "name": "Four steps, then it's yours",
                 "item": "https://www.lidonick.com/how-dealership-ai-setup-works"
               }
             ]
@@ -134,9 +134,9 @@
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">How It Works: Setting Up Your Dealership's AI Agents in Four Steps</span>
+          <span aria-current="page">Four steps, then it's yours</span>
         </nav>
-        <h1>How It Works: Setting Up Your Dealership's AI Agents in Four Steps</h1>
+        <h1>Four steps, then it's yours</h1>
         <p>
           Setting up AI at a dealership doesn't have to be a six-month software rollout. Our
           process is four simple steps, built around your people and the tools you already have.
@@ -261,7 +261,7 @@
           <a href="/the-problem-with-dealership-software">the problem with dealership software</a>,
           or <a href="/ai-consulting-for-car-dealerships">what we do</a>.
         </p>
-        <p>Step 1 takes one call. <a href="/#book">Book a call</a>.</p>
+        <p>Step 1 takes one call. <a href="#book">Book a call</a>.</p>
 
         <h2>FAQ</h2>
         <h3>How do I set up AI agents at my dealership?</h3>
@@ -290,6 +290,20 @@
           Your team runs it. We show them how to adjust prompts, add alerts, and pause workflows,
           so they aren't dependent on us.
         </p>
+        <aside class="call-close" id="book">
+          <h2>Book the call that starts it</h2>
+          <form class="call-form" novalidate>
+            <p class="call-error" role="alert" hidden></p>
+            <div class="call-grid">
+              <label for="call-name">Name<input id="call-name" name="name" type="text" autocomplete="name" required /></label>
+              <label for="call-phone">Phone<input id="call-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
+              <label for="call-email">Email<input id="call-email" name="email" type="email" autocomplete="email" inputmode="email" /></label>
+            </div>
+            <input class="call-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="button" type="submit">Book a call</button>
+          </form>
+          <p class="call-status" role="status" hidden>Thanks, we'll be in touch soon.</p>
+        </aside>
       </article>
     </main>
     <footer class="footer">
@@ -306,5 +320,6 @@
         </nav>
       </div>
     </footer>
+    <script src="/book-form.js"></script>
   </body>
 </html>

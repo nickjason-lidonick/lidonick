@@ -6,16 +6,16 @@ Contact: book a call at https://www.lidonick.com/#book.
 
 ## Main pages
 
-- [Home](https://www.lidonick.com/): Overview of Lidonick's one-time AI agent setup for dealership teams, with examples
-- [The problem](https://www.lidonick.com/the-problem-with-dealership-software): Why dealership software costs keep growing and how AI you already have can do more of the work
-- [What we do](https://www.lidonick.com/ai-consulting-for-car-dealerships): AI consulting for car dealerships, combining dealer experience with prompt expertise
-- [How it works](https://www.lidonick.com/how-dealership-ai-setup-works): The four-step process to book, map, build, and hand over your dealership's AI agents
-- [Who we help](https://www.lidonick.com/ai-for-dealership-staff): Role-by-role AI agent examples for GMs, sales, service, F&I, and BDC
+- [Lidonick - Your store's AI, set up the right way](https://www.lidonick.com/): Dealers are paying for software they could build themselves. Lidonick helps dealership staff set up their own AI agents and workflows for a one-time fee.
+- [Dealers Are Paying for Software They Could Build Themselves | Lidonick](https://www.lidonick.com/the-problem-with-dealership-software): Dealerships keep adding subscriptions and long contracts for tools that only do part of the job.
+- [AI Consulting for Car Dealerships, No Subscription | Lidonick](https://www.lidonick.com/ai-consulting-for-car-dealerships): A one-time fee to help staff set up their own AI agents and workflows. No SaaS, no long-term contract.
+- [How Dealership AI Setup Works | Lidonick](https://www.lidonick.com/how-dealership-ai-setup-works): Book a call, map the work, build the agents with the store, then hand it over.
+- [AI for Every Role in the Dealership | Lidonick](https://www.lidonick.com/ai-for-dealership-staff): AI agents for GMs, sales, service, F&I, and BDC, set up in the tools the store already uses.
 
 ## Guides
 
-- [Grok Bot for car dealerships](https://www.lidonick.com/grok-bot-for-car-dealerships): Pillar guide to how each dealership role can use Grok Bot and other AI agents safely
-- [Grok Bot prompts for car dealerships](https://www.lidonick.com/grok-bot-prompts-for-car-dealerships): Copy-ready AI agent prompts for every dealership role and the five-part prompt formula
+- [Grok Bot for Car Dealerships | Lidonick](https://www.lidonick.com/grok-bot-for-car-dealerships): A role-by-role look at Grok Bot in a car dealership, from the GM to sales, service, F&I, and the BDC.
+- [Grok Bot Prompts for Sales, Service, and F&I | Lidonick](https://www.lidonick.com/grok-bot-prompts-for-car-dealerships): Ready-to-use prompts for sales, service, F&I, GMs, and BDC teams.
 
 ## Optional
 

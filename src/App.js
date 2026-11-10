@@ -110,15 +110,40 @@ const CALL_FORM_ENDPOINT = "https://formspree.io/f/mpqbobry";
 function CallForm() {
   const gotchaRef = useRef(null);
   const [name, setName] = useState("");
-  const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!name.trim() || !contact.trim()) {
-      setError("Add your name and a phone or email.");
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    const trimmedEmail = email.trim();
+    const missingName = !trimmedName;
+    const missingContact = !trimmedPhone && !trimmedEmail;
+    const emailInput = event.currentTarget.elements.email;
+
+    if (missingName || missingContact) {
+      if (missingName && missingContact) {
+        setError("Add your name, and a phone or email.");
+      } else if (missingName) {
+        setError("Add your name.");
+      } else {
+        setError("Add a phone or email.");
+      }
+      setStatus("error");
+      return;
+    }
+
+    if (
+      trimmedEmail &&
+      emailInput &&
+      typeof emailInput.checkValidity === "function" &&
+      !emailInput.checkValidity()
+    ) {
+      setError("Enter a valid email.");
       setStatus("error");
       return;
     }
@@ -133,8 +158,9 @@ function CallForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name.trim(),
-          "Phone or email": contact.trim(),
+          name: trimmedName,
+          ...(trimmedPhone ? { phone: trimmedPhone } : {}),
+          ...(trimmedEmail ? { email: trimmedEmail } : {}),
           notes: notes.trim(),
           _subject: "New Lidonick call request",
           _gotcha: gotchaRef.current ? gotchaRef.current.value : "",
@@ -179,16 +205,30 @@ function CallForm() {
           onChange={(event) => setName(event.target.value)}
         />
       </label>
-      <label htmlFor="call-contact">
-        Phone or email
+      <label htmlFor="call-phone">
+        Phone
         <input
-          id="call-contact"
-          name="phone_or_email"
-          type="text"
-          autoComplete="on"
-          required
-          value={contact}
-          onChange={(event) => setContact(event.target.value)}
+          id="call-phone"
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          inputMode="tel"
+          aria-invalid={status === "error" && !phone.trim() && !email.trim()}
+          value={phone}
+          onChange={(event) => setPhone(event.target.value)}
+        />
+      </label>
+      <label htmlFor="call-email">
+        Email
+        <input
+          id="call-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
+          aria-invalid={status === "error" && !phone.trim() && !email.trim()}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
       </label>
       <label htmlFor="call-notes">

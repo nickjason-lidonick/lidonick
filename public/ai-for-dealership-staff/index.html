@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1e3d34" />
-    <title>AI for Car Dealership Staff, Every Role | Lidonick</title>
-    <meta name="description" content="AI agents for dealership GMs, sales managers, salespeople, service directors, F&amp;I and BDC. Set up in your own tools for one fee, no subscription." />
+    <title>AI for Every Role in the Dealership | Lidonick</title>
+    <meta name="description" content="AI agents for dealership GMs, sales, service, F&amp;I, and BDC teams, set up in the tools you already use. One fee, no subscription." />
     <link rel="canonical" href="https://www.lidonick.com/ai-for-dealership-staff" />
-    <meta property="og:title" content="AI for Car Dealership Staff, Every Role | Lidonick" />
-    <meta property="og:description" content="AI agents for dealership GMs, sales managers, salespeople, service directors, F&amp;I and BDC. Set up in your own tools for one fee, no subscription." />
+    <meta property="og:title" content="AI for Every Role in the Dealership | Lidonick" />
+    <meta property="og:description" content="AI agents for dealership GMs, sales, service, F&amp;I, and BDC teams, set up in the tools you already use. One fee, no subscription." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.lidonick.com/ai-for-dealership-staff" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="AI for Car Dealership Staff, Every Role | Lidonick" />
-    <meta name="twitter:description" content="AI agents for dealership GMs, sales managers, salespeople, service directors, F&amp;I and BDC. Set up in your own tools for one fee, no subscription." />
+    <meta name="twitter:title" content="AI for Every Role in the Dealership | Lidonick" />
+    <meta name="twitter:description" content="AI agents for dealership GMs, sales, service, F&amp;I, and BDC teams, set up in the tools you already use. One fee, no subscription." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,8 +25,8 @@
         "@graph": [
           {
             "@type": "WebPage",
-            "name": "Who We Help: AI for Every Seat in the Dealership",
-            "description": "AI agents for dealership GMs, sales managers, salespeople, service directors, F&I and BDC. Set up in your own tools for one fee, no subscription.",
+            "name": "From the GM to the BDC",
+            "description": "AI agents for dealership GMs, sales, service, F&I, and BDC teams, set up in the tools you already use. One fee, no subscription.",
             "url": "https://www.lidonick.com/ai-for-dealership-staff",
             "isPartOf": {
               "@type": "WebSite",
@@ -91,7 +91,7 @@
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Who We Help: AI for Every Seat in the Dealership",
+                "name": "From the GM to the BDC",
                 "item": "https://www.lidonick.com/ai-for-dealership-staff"
               }
             ]
@@ -134,9 +134,9 @@
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">Who We Help: AI for Every Seat in the Dealership</span>
+          <span aria-current="page">From the GM to the BDC</span>
         </nav>
-        <h1>Who We Help: AI for Every Seat in the Dealership</h1>
+        <h1>From the GM to the BDC</h1>
         <p>
           Lidonick helps every seat in the store. You don't need a dealer-group IT department or a
           big software budget. If you're a salesperson who wants help staying on top of follow-ups,
@@ -281,7 +281,7 @@
           If you're new to AI agents, start with our
           <a href="/grok-bot-for-car-dealerships">guide to Grok Bot for car dealerships</a>.
         </p>
-        <p>Tell us your role. <a href="/#book">Book a call</a>.</p>
+        <p>Tell us your role. <a href="#book">Book a call</a>.</p>
 
         <h2>FAQ</h2>
         <h3>Which dealership roles can use AI agents?</h3>
@@ -309,6 +309,20 @@
           It can be, with care. We keep F&amp;I agents to the minimum data they need and recommend
           checking any setup against your written security program under the FTC Safeguards Rule.
         </p>
+        <aside class="call-close" id="book">
+          <h2>Book a call and tell us your role</h2>
+          <form class="call-form" novalidate>
+            <p class="call-error" role="alert" hidden></p>
+            <div class="call-grid">
+              <label for="call-name">Name<input id="call-name" name="name" type="text" autocomplete="name" required /></label>
+              <label for="call-phone">Phone<input id="call-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
+              <label for="call-email">Email<input id="call-email" name="email" type="email" autocomplete="email" inputmode="email" /></label>
+            </div>
+            <input class="call-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="button" type="submit">Book a call</button>
+          </form>
+          <p class="call-status" role="status" hidden>Thanks, we'll be in touch soon.</p>
+        </aside>
       </article>
     </main>
     <footer class="footer">
@@ -325,5 +339,6 @@
         </nav>
       </div>
     </footer>
+    <script src="/book-form.js"></script>
   </body>
 </html>
