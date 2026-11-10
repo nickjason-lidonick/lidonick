@@ -6,7 +6,7 @@ import "./App.css";
 // An empty value scrolls those controls to the closing section.
 export const BOOKING_URL = "";
 
-const CLOSING_ID = "closing";
+const CLOSING_ID = "book";
 
 export function bookingHref(url = BOOKING_URL) {
   const value = typeof url === "string" ? url.trim() : "";
@@ -24,6 +24,17 @@ const FOOTER_NAV = [
   ...NAV,
   { href: "#different", label: "How it's different" },
   { href: "#examples", label: "Examples" },
+];
+
+const GUIDES = [
+  {
+    href: "/grok-bot-for-car-dealerships",
+    label: "Grok Bot for car dealerships",
+  },
+  {
+    href: "/grok-bot-prompts-for-car-dealerships",
+    label: "Grok Bot prompts for car dealerships",
+  },
 ];
 
 const DIFFERENCES = [
@@ -171,6 +182,16 @@ export default function App() {
                 {item.label}
               </a>
             ))}
+            <details className="guides-menu">
+              <summary>Guides</summary>
+              <div className="guides-panel">
+                {GUIDES.map((guide) => (
+                  <a key={guide.href} href={guide.href} onClick={closeMenu}>
+                    {guide.label}
+                  </a>
+                ))}
+              </div>
+            </details>
             <BookCall className="button nav-cta" onClick={closeMenu} />
           </nav>
         </div>
@@ -331,6 +352,14 @@ export default function App() {
               </a>
             ))}
             <BookCall />
+          </nav>
+          <nav aria-label="Guides">
+            <p className="footer-label">Guides</p>
+            {GUIDES.map((guide) => (
+              <a key={guide.href} href={guide.href}>
+                {guide.label}
+              </a>
+            ))}
           </nav>
         </div>
       </footer>

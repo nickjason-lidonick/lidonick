@@ -77,8 +77,16 @@ test("presents one-time setup for a store's own AI, not a product for sale", () 
     "Lidonick · Dealer and prompt expertise. One-time setup, no subscriptions."
   );
 
-  expect(document.body.textContent).not.toMatch(/grok/i);
   expect(document.body.textContent).not.toMatch(/request a demo/i);
+  expect(screen.getAllByRole("link", { name: "Grok Bot for car dealerships" }).length).toBeGreaterThan(0);
+  expect(screen.getAllByRole("link", { name: "Grok Bot prompts for car dealerships" }).length).toBeGreaterThan(0);
+  screen.getAllByRole("link", { name: "Grok Bot for car dealerships" }).forEach((link) => {
+    expect(link).toHaveAttribute("href", "/grok-bot-for-car-dealerships");
+  });
+  screen.getAllByRole("link", { name: "Grok Bot prompts for car dealerships" }).forEach((link) => {
+    expect(link).toHaveAttribute("href", "/grok-bot-prompts-for-car-dealerships");
+  });
+  expect(document.getElementById("book")).toBeInTheDocument();
   expect(document.body.textContent).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
   expect(document.body.textContent).not.toMatch(/\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/);
 
@@ -86,14 +94,14 @@ test("presents one-time setup for a store's own AI, not a product for sale", () 
   const bookLinks = screen.getAllByRole("link", { name: /^book a call$/i });
   expect(bookLinks.length).toBeGreaterThan(2);
   bookLinks.forEach((link) => {
-    expect(link).toHaveAttribute("href", "#closing");
+    expect(link).toHaveAttribute("href", "#book");
     expect(link).not.toHaveAttribute("target");
   });
 });
 
 test("booking href stays empty-safe and uses a provided url", () => {
-  expect(bookingHref("")).toBe("#closing");
-  expect(bookingHref("   ")).toBe("#closing");
+  expect(bookingHref("")).toBe("#book");
+  expect(bookingHref("   ")).toBe("#book");
   expect(bookingHref("https://example.com/book")).toBe("https://example.com/book");
 });
 
@@ -133,12 +141,18 @@ test("document title and descriptions use the approved line", () => {
   const shipped = [
     html,
     JSON.stringify(manifest),
-    appSource,
+    appSource
+      .replaceAll("/grok-bot-for-car-dealerships", "")
+      .replaceAll("/grok-bot-prompts-for-car-dealerships", "")
+      .replaceAll("Grok Bot for car dealerships", "")
+      .replaceAll("Grok Bot prompts for car dealerships", ""),
     read("App.css"),
     read("index.js"),
     read("index.css"),
   ].join("\n");
   expect(shipped).not.toMatch(/grok/i);
+  expect(html).toContain('rel="canonical" href="https://www.lidonick.com/"');
+  expect(html).toContain('"@type": "Organization"');
   expect(shipped).not.toMatch(/request a demo/i);
   expect(shipped).not.toMatch(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
   expect(shipped).not.toMatch(/type="password"|password\s*[:=]/i);
