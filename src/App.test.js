@@ -122,13 +122,21 @@ test("submits the booking form and shows success or an inline error", async () =
   expect(section).toContainElement(screen.getByLabelText(/^name$/i));
 
   fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
-  expect(screen.getByRole("alert")).toHaveTextContent(/add your name and a phone or email/i);
+  expect(screen.getByRole("alert")).toHaveTextContent(/add your name, and a phone or email/i);
   expect(fetchMock).not.toHaveBeenCalled();
 
   fireEvent.change(screen.getByLabelText(/^name$/i), {
     target: { value: "TEST - Lidonick site" },
   });
-  fireEvent.change(screen.getByLabelText(/^phone or email$/i), {
+  fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
+  expect(screen.getByRole("alert")).toHaveTextContent(/add a phone or email/i);
+  expect(fetchMock).not.toHaveBeenCalled();
+
+  expect(screen.getByLabelText(/^phone$/i)).toHaveAttribute("type", "tel");
+  expect(screen.getByLabelText(/^phone$/i)).toHaveAttribute("name", "phone");
+  expect(screen.getByLabelText(/^email$/i)).toHaveAttribute("type", "email");
+  expect(screen.getByLabelText(/^email$/i)).toHaveAttribute("name", "email");
+  fireEvent.change(screen.getByLabelText(/^phone$/i), {
     target: { value: "555-010-0199" },
   });
   fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
@@ -146,13 +154,15 @@ test("submits the booking form and shows success or an inline error", async () =
   expect(payload._subject).toBe("New Lidonick call request");
   expect(payload._gotcha).toBe("");
   expect(payload.name).toBe("TEST - Lidonick site");
+  expect(payload.phone).toBe("555-010-0199");
+  expect(payload.email).toBeUndefined();
 
   cleanup();
   fetchMock.mockResolvedValueOnce({ ok: false, json: async () => ({}) });
   render(<App />);
   fireEvent.change(screen.getByLabelText(/^name$/i), { target: { value: "Ada" } });
-  fireEvent.change(screen.getByLabelText(/^phone or email$/i), {
-    target: { value: "555-010-0100" },
+  fireEvent.change(screen.getByLabelText(/^email$/i), {
+    target: { value: "ada@example.com" },
   });
   fireEvent.click(screen.getByRole("button", { name: /^book a call$/i }));
   expect(await screen.findByRole("alert")).toHaveTextContent(/something went wrong/i);
