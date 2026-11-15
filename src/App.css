@@ -24,7 +24,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(243, 240, 232, 0.94);
+  background: rgba(244, 247, 251, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
 }
@@ -82,7 +82,7 @@
 }
 
 .nav a:hover {
-  color: var(--green);
+  color: var(--accent);
 }
 
 .button {
@@ -92,18 +92,18 @@
   min-height: 2.75rem;
   padding: 0.55rem 1.1rem;
   border-radius: 6px;
-  border: 1px solid var(--green);
-  background: var(--green);
-  color: var(--cream);
+  border: 1px solid var(--navy);
+  background: var(--navy);
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
   line-height: 1.2;
 }
 
 .button:hover {
-  background: var(--green-2);
-  border-color: var(--green-2);
-  color: var(--cream);
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
+  color: #fff;
 }
 
 .guides-menu {
@@ -132,7 +132,7 @@
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 16px 36px rgba(28, 25, 21, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 42, 92, 0.1);
 }
 
 .guides-panel a {
@@ -142,7 +142,7 @@
 }
 
 .guides-panel a:hover {
-  background: rgba(30, 61, 52, 0.06);
+  background: rgba(15, 42, 92, 0.06);
 }
 
 .nav-cta {
@@ -161,13 +161,13 @@
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 .hero-wrap {
   background:
-    radial-gradient(ellipse at 100% 0%, rgba(30, 61, 52, 0.07), transparent 46%),
+    radial-gradient(ellipse at 100% 0%, rgba(79, 140, 255, 0.16), transparent 46%),
     var(--paper);
   border-bottom: 1px solid var(--line);
 }
@@ -182,7 +182,7 @@ button:focus-visible {
 
 .kicker {
   margin: 0 0 0.85rem;
-  color: var(--green);
+  color: var(--accent);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -253,7 +253,7 @@ p {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
-  box-shadow: 0 22px 48px rgba(28, 25, 21, 0.08);
+  box-shadow: 0 22px 48px rgba(15, 42, 92, 0.1);
   overflow: hidden;
 }
 
@@ -263,8 +263,8 @@ p {
   gap: 1rem;
   margin: 0;
   padding: 0.9rem 1.25rem;
-  background: var(--green);
-  color: var(--cream);
+  background: var(--navy);
+  color: #fff;
   font-size: 0.98rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -354,7 +354,7 @@ p {
 .card-index {
   display: block;
   margin-bottom: 0.7rem;
-  color: var(--green);
+  color: var(--accent);
   font-family: var(--serif);
   font-size: 1.35rem;
   line-height: 1;
@@ -397,7 +397,7 @@ p {
   font-family: var(--serif);
   font-size: 1.85rem;
   line-height: 1;
-  color: var(--green);
+  color: var(--accent);
   padding-top: 0.12rem;
 }
 
@@ -443,7 +443,7 @@ p {
   padding: 1.05rem 1.2rem 1.1rem 1.15rem;
   background: var(--card);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--green);
+  border-left: 3px solid var(--accent);
   border-radius: 0 12px 12px 0;
   font-family: var(--serif);
   font-size: clamp(1.2rem, 2vw, 1.45rem);
@@ -451,13 +451,13 @@ p {
 }
 
 .tone-demo {
-  background: var(--green);
-  color: var(--cream);
+  background: var(--navy);
+  color: #fff;
 }
 
 .tone-demo h2,
 .tone-demo p {
-  color: var(--cream);
+  color: #fff;
 }
 
 .closing {
@@ -478,7 +478,7 @@ p {
 
 .closing p {
   margin: 0;
-  color: #e4ece8;
+  color: #d7e4f8;
   font-size: 1.15rem;
 }
 
@@ -535,15 +535,15 @@ p {
 
 .call-form button.button,
 .tone-demo .call-form button.button {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--navy);
+  border-color: var(--navy);
   color: #fff;
 }
 
 .call-form button.button:hover:not(:disabled),
 .tone-demo .call-form button.button:hover:not(:disabled) {
-  background: var(--green-2);
-  border-color: var(--green-2);
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
   color: #fff;
 }
 
@@ -553,7 +553,7 @@ p {
 }
 
 .call-form :focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -575,7 +575,7 @@ p {
 
 .call-error {
   margin: 0;
-  color: #7a2e24;
+  color: #9f1c33;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -586,24 +586,24 @@ p {
 
 .tone-demo .button {
   flex: 0 0 auto;
-  background: var(--cream);
-  color: var(--green);
-  border-color: var(--cream);
+  background: #fff;
+  color: var(--navy);
+  border-color: #fff;
 }
 
 .tone-demo .button:hover {
-  background: #fff;
-  border-color: #fff;
-  color: var(--green);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
 
 .tone-demo :focus-visible {
-  outline-color: var(--cream);
+  outline-color: var(--accent-bright);
 }
 
 .footer {
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--navy);
+  color: #fff;
   padding: 2.5rem 0;
 }
 
@@ -633,7 +633,7 @@ p {
 
 .footer-label {
   margin: 0 0 0.2rem;
-  color: #d9d3c8;
+  color: #c5d4ee;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -641,7 +641,7 @@ p {
 }
 
 .footer a {
-  color: var(--cream);
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
 }
@@ -651,7 +651,7 @@ p {
 }
 
 .footer :focus-visible {
-  outline-color: var(--cream);
+  outline-color: var(--accent-bright);
 }
 
 section[id] {

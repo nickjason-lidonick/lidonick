@@ -162,6 +162,37 @@ test("sitemap, robots, and llms.txt list the public pages", () => {
     expect(html).toContain('name="twitter:description"');
   });
 
+  const retired = [
+    "#f3f0e8",
+    "#fffcf7",
+    "#f6f3ec",
+    "#e8e1d4",
+    "#ddd4c4",
+    "#d9d3c8",
+    "#1e3d34",
+    "#16312a",
+    "#7a2e24",
+    "#e4ece8",
+    "#1c1915",
+    "#4a453e",
+  ];
+  const styled = [
+    "src/index.css",
+    "src/App.css",
+    "public/guide.css",
+    "public/manifest.json",
+    "public/favicon.svg",
+    ...pages,
+  ].map((file) => read(file).toLowerCase());
+  retired.forEach((color) => {
+    styled.forEach((source) => {
+      expect(source).not.toContain(color);
+    });
+  });
+  styled.forEach((source) => {
+    expect(source).not.toMatch(/--green\b|--cream\b/);
+  });
+
   expect(config.cleanUrls).toBe(true);
   expect(config.trailingSlash).toBe(false);
   expect(JSON.stringify(config.rewrites || [])).not.toContain("/index.html");
