@@ -133,6 +133,35 @@ test("sitemap, robots, and llms.txt list the public pages", () => {
   expect(llms).toContain("Contact: book a call at https://www.lidonick.com/#book.");
   expect(llms).not.toMatch(/Nick Jason/);
   expect(llms).not.toMatch(/Founded by/);
+  const image = fs.readFileSync(path.join(ROOT, "public/og-image.png"));
+  expect(image.subarray(0, 8).toString("latin1")).toBe("\u0089PNG\r\n\u001a\n");
+  expect(image.readUInt32BE(16)).toBe(1200);
+  expect(image.readUInt32BE(20)).toBe(630);
+
+  const pages = [
+    "public/index.html",
+    ...PAGES.map((page) => page.file),
+    ...NAV_PAGES.map((page) => page.file),
+  ];
+  const alt = "Lidonick - Your store's AI, set up the right way";
+  pages.forEach((file) => {
+    const html = read(file);
+    expect(html).toContain('property="og:image" content="https://www.lidonick.com/og-image.png"');
+    expect(html).toContain('property="og:image:width" content="1200"');
+    expect(html).toContain('property="og:image:height" content="630"');
+    expect(html).toContain(`property="og:image:alt" content="${alt}"`);
+    expect(html).toContain('name="twitter:card" content="summary_large_image"');
+    expect(html).toContain('name="twitter:image" content="https://www.lidonick.com/og-image.png"');
+    expect(html).not.toContain('content="summary"');
+    const title = html.match(/<title>([^<]*)<\/title>/)[1].replaceAll("&amp;", "&");
+    expect(title).not.toMatch(/Your store$/);
+    expect(html).toContain('property="og:title"');
+    expect(html).toContain('property="og:description"');
+    expect(html).toContain('property="og:url"');
+    expect(html).toContain('name="twitter:title"');
+    expect(html).toContain('name="twitter:description"');
+  });
+
   expect(config.cleanUrls).toBe(true);
   expect(config.trailingSlash).toBe(false);
   expect(JSON.stringify(config.rewrites || [])).not.toContain("/index.html");
