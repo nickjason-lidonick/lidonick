@@ -1,12 +1,14 @@
 :root {
-  --ink: #1c1915;
-  --muted: #4a453e;
-  --paper: #f3f0e8;
-  --card: #fffcf7;
-  --line: #ddd4c4;
-  --green: #1e3d34;
-  --green-2: #16312a;
-  --cream: #f6f3ec;
+  --ink: #0f2a5c;
+  --muted: #3a5278;
+  --paper: #f4f7fb;
+  --card: #ffffff;
+  --line: #d3deec;
+  --navy: #0f2a5c;
+  --navy-deep: #0a2048;
+  --accent: #1f5fd6;
+  --accent-bright: #4f8cff;
+  --on-navy: #ffffff;
   --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --sans: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
   --wrap: 1080px;
@@ -68,7 +70,7 @@ li {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(243, 240, 232, 0.94);
+  background: rgba(244, 247, 251, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
 }
@@ -139,7 +141,7 @@ li {
 }
 
 .nav-toggle:focus-visible + .menu-btn {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -158,7 +160,7 @@ li {
 .nav a:hover,
 .nav a[aria-current="page"],
 .guides-menu summary:hover {
-  color: var(--green);
+  color: var(--accent);
 }
 
 .guides-menu {
@@ -188,7 +190,7 @@ li {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 16px 36px rgba(28, 25, 21, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 42, 92, 0.1);
 }
 
 .guides-panel a {
@@ -198,7 +200,7 @@ li {
 }
 
 .guides-panel a:hover {
-  background: rgba(30, 61, 52, 0.06);
+  background: rgba(15, 42, 92, 0.06);
 }
 
 .nav a.button {
@@ -214,8 +216,8 @@ li {
   min-height: 2.75rem;
   padding: 0.55rem 1.1rem;
   border-radius: 6px;
-  border: 1px solid var(--green);
-  background: var(--green);
+  border: 1px solid var(--navy);
+  background: var(--navy);
   color: #fff;
   font-weight: 600;
   text-decoration: none;
@@ -224,8 +226,8 @@ li {
 
 .button:hover,
 .button:focus-visible {
-  background: var(--green-2);
-  border-color: var(--green-2);
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
   color: #fff;
 }
 
@@ -238,7 +240,7 @@ li {
 
 a:focus-visible,
 summary:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -259,7 +261,7 @@ summary:focus-visible {
 }
 
 .crumbs a {
-  color: var(--green);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -280,7 +282,7 @@ h3 {
 
 .kicker {
   margin: 0 0 0.9rem;
-  color: var(--green);
+  color: var(--accent);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -319,7 +321,7 @@ p {
 }
 
 .prose a {
-  color: var(--green);
+  color: var(--accent);
   font-weight: 600;
   text-underline-offset: 0.16em;
 }
@@ -348,7 +350,7 @@ p {
   margin: 1.15rem 0 1.35rem;
   background: var(--card);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--green);
+  border-left: 3px solid var(--accent);
   border-radius: 0 12px 12px 0;
 }
 
@@ -377,8 +379,8 @@ p {
 .call-close {
   margin: 2.75rem 0 0;
   padding: 1.25rem 1.25rem 1.3rem;
-  background: var(--green);
-  color: var(--cream);
+  background: var(--navy);
+  color: #fff;
   border-radius: 14px;
   scroll-margin-top: calc(var(--header) + 0.85rem);
 }
@@ -388,7 +390,7 @@ p {
   padding: 0;
   border: 0;
   max-width: 16ch;
-  color: var(--cream);
+  color: #fff;
   font-size: clamp(1.65rem, 3vw, 2.05rem);
   line-height: 1.08;
 }
@@ -406,7 +408,7 @@ p {
 .call-close label {
   display: grid;
   gap: 0.3rem;
-  color: var(--cream);
+  color: #fff;
   font-size: 0.92rem;
   font-weight: 600;
 }
@@ -427,15 +429,15 @@ p {
 .call-close .button {
   width: 100%;
   margin-top: 0.85rem;
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
+  background: #fff;
+  border-color: #fff;
+  color: var(--navy);
 }
 
 .call-close .button:hover,
 .call-close .button:focus-visible {
-  background: #000;
-  border-color: #000;
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -446,14 +448,14 @@ p {
 
 .call-close .call-error {
   margin: 0 0 0.75rem;
-  color: #f6d5cf;
+  color: #ffc9c4;
   font-size: 0.98rem;
   font-weight: 600;
 }
 
 .call-close .call-status {
   margin: 0.15rem 0 0;
-  color: var(--cream);
+  color: #fff;
   font-family: var(--serif);
   font-size: 1.55rem;
   line-height: 1.25;
@@ -468,8 +470,8 @@ p {
 }
 
 .footer {
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--navy);
+  color: #fff;
   padding: 2.5rem 0;
 }
 
@@ -498,7 +500,7 @@ p {
 }
 
 .footer a {
-  color: var(--cream);
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
 }
@@ -508,7 +510,7 @@ p {
 }
 
 .footer :focus-visible {
-  outline-color: var(--cream);
+  outline-color: var(--accent-bright);
 }
 
 @media (min-width: 1041px) {
