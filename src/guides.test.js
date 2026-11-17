@@ -142,6 +142,10 @@ test("sitemap, robots, and llms.txt list the public pages", () => {
     "public/index.html",
     ...PAGES.map((page) => page.file),
     ...NAV_PAGES.map((page) => page.file),
+    "public/ai-for-bdc-follow-up/index.html",
+    "public/cut-dealership-software-costs/index.html",
+    "public/ai-for-service-advisors/index.html",
+    "public/ai-for-f-and-i-managers/index.html",
   ];
   const alt = "Lidonick - Your store's AI, set up the right way";
   pages.forEach((file) => {
@@ -293,4 +297,60 @@ test.each(NAV_PAGES)("$path is crawlable HTML with schema", (page) => {
     expect(text).toContain(item.acceptedAnswer.text);
   });
   expect(crumbs.itemListElement[1].item).toBe(canonical);
+});
+
+test("the four new guide pages are listed and keep the booking form markup", () => {
+  const pages = [
+    ["public/ai-for-bdc-follow-up/index.html", "/ai-for-bdc-follow-up", "AI for BDC Follow-Up at Car Dealerships | Lidonick", "AI for Dealership BDC Follow-Up"],
+    ["public/cut-dealership-software-costs/index.html", "/cut-dealership-software-costs", "How Car Dealerships Can Cut Software Costs with AI | Lidonick", "How to Cut Dealership Software Costs"],
+    ["public/ai-for-service-advisors/index.html", "/ai-for-service-advisors", "AI for Dealership Service Advisors | Lidonick", "AI for Service Advisors"],
+    ["public/ai-for-f-and-i-managers/index.html", "/ai-for-f-and-i-managers", "AI for Dealership F&I Managers | Lidonick", "AI for F&I Managers"],
+  ];
+  const sitemap = read("public/sitemap.xml");
+  const llms = read("public/llms.txt");
+  expect(read("public/book-form.js")).toContain("https://formspree.io/f/mpqbobry");
+  pages.forEach(([file, pathName, title, h1]) => {
+    const html = read(file);
+    const description = html.match(/name="description" content="([^"]*)"/)[1].replaceAll("&amp;", "&");
+    expect(html.match(/<title>([^<]*)<\/title>/)[1].replaceAll("&amp;", "&")).toBe(title);
+    expect(html).toContain(`<h1>${h1.replaceAll("&", "&amp;")}</h1>`);
+    expect(description.length).toBeLessThan(160);
+    expect(html).toContain(`rel="canonical" href="https://www.lidonick.com${pathName}"`);
+    expect(html).toContain('src="/book-form.js"');
+    expect(html).toContain('name="name"');
+    expect(html).toContain('name="phone"');
+    expect(html).toContain('name="email"');
+    expect(html).not.toContain('name="notes"');
+    expect(html).not.toMatch(/Nick Jason/);
+    expect(sitemap).toContain(`<loc>https://www.lidonick.com${pathName}</loc>\n    <lastmod>2026-11-17</lastmod>`);
+    expect(llms).toContain(`https://www.lidonick.com${pathName}`);
+  });
+});
+
+test("the four new guide pages are listed and keep the booking form markup", () => {
+  const pages = [
+    ["public/ai-for-bdc-follow-up/index.html", "/ai-for-bdc-follow-up", "AI for BDC Follow-Up at Car Dealerships | Lidonick", "AI for Dealership BDC Follow-Up"],
+    ["public/cut-dealership-software-costs/index.html", "/cut-dealership-software-costs", "How Car Dealerships Can Cut Software Costs with AI | Lidonick", "How to Cut Dealership Software Costs"],
+    ["public/ai-for-service-advisors/index.html", "/ai-for-service-advisors", "AI for Dealership Service Advisors | Lidonick", "AI for Service Advisors"],
+    ["public/ai-for-f-and-i-managers/index.html", "/ai-for-f-and-i-managers", "AI for Dealership F&I Managers | Lidonick", "AI for F&I Managers"],
+  ];
+  const sitemap = read("public/sitemap.xml");
+  const llms = read("public/llms.txt");
+  expect(read("public/book-form.js")).toContain("https://formspree.io/f/mpqbobry");
+  pages.forEach(([file, pathName, title, h1]) => {
+    const html = read(file);
+    const description = html.match(/name="description" content="([^"]*)"/)[1].replaceAll("&amp;", "&");
+    expect(html.match(/<title>([^<]*)<\/title>/)[1].replaceAll("&amp;", "&")).toBe(title);
+    expect(html).toContain(`<h1>${h1.replaceAll("&", "&amp;")}</h1>`);
+    expect(description.length).toBeLessThan(160);
+    expect(html).toContain(`rel="canonical" href="https://www.lidonick.com${pathName}"`);
+    expect(html).toContain('src="/book-form.js"');
+    expect(html).toContain('name="name"');
+    expect(html).toContain('name="phone"');
+    expect(html).toContain('name="email"');
+    expect(html).not.toContain('name="notes"');
+    expect(html).not.toMatch(/Nick Jason/);
+    expect(sitemap).toContain(`<loc>https://www.lidonick.com${pathName}</loc>\n    <lastmod>2026-11-17</lastmod>`);
+    expect(llms).toContain(`https://www.lidonick.com${pathName}`);
+  });
 });

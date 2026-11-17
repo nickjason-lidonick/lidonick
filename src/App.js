@@ -35,6 +35,22 @@ const GUIDES = [
     href: "/grok-bot-prompts-for-car-dealerships",
     label: "Grok Bot prompts for car dealerships",
   },
+  {
+    href: "/ai-for-bdc-follow-up",
+    label: "AI for BDC follow-up",
+  },
+  {
+    href: "/cut-dealership-software-costs",
+    label: "Cut dealership software costs",
+  },
+  {
+    href: "/ai-for-service-advisors",
+    label: "AI for service advisors",
+  },
+  {
+    href: "/ai-for-f-and-i-managers",
+    label: "AI for F&I managers",
+  },
 ];
 
 const DIFFERENCES = [

@@ -16,6 +16,10 @@ Contact: book a call at https://www.lidonick.com/#book.
 
 - [Grok Bot for Car Dealerships | Lidonick](https://www.lidonick.com/grok-bot-for-car-dealerships): A role-by-role look at Grok Bot in a car dealership, from the GM to sales, service, F&I, and the BDC.
 - [Grok Bot Prompts for Sales, Service, and F&I | Lidonick](https://www.lidonick.com/grok-bot-prompts-for-car-dealerships): Ready-to-use prompts for sales, service, F&I, GMs, and BDC teams.
+- [AI for BDC Follow-Up at Car Dealerships | Lidonick](https://www.lidonick.com/ai-for-bdc-follow-up): Your BDC already knows what a good follow-up looks like. The problem is volume.
+- [How Car Dealerships Can Cut Software Costs with AI | Lidonick](https://www.lidonick.com/cut-dealership-software-costs): Dealers are paying for software they could build themselves. Audit the add-ons and keep the DMS and CRM.
+- [AI for Dealership Service Advisors | Lidonick](https://www.lidonick.com/ai-for-service-advisors): Service advisors spend a big part of the day writing. An AI agent can draft the messages they review and send.
+- [AI for Dealership F&I Managers | Lidonick](https://www.lidonick.com/ai-for-f-and-i-managers): F&I is detail work under time pressure. An AI agent can prep the deal while the manager stays in control.
 
 ## Optional
 
